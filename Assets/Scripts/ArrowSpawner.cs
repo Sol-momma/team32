@@ -17,7 +17,7 @@ public class ArrowSpawner : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
-            GameObject arrow = Instantiate(arrowPrefab);
+            GameObject arrow = Instantiate(arrowPrefab, new Vector3(0, 20, 0), Quaternion.identity);
                
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 world_direction = ray.direction;

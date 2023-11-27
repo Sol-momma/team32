@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     private readonly float speed = 100f;
-    private Vector3 goalPosition = new(1000, 0, 1000);
+    private Vector3 goalPosition = new(0, 0, 1000);
     void Start()
     {
     }

@@ -16,10 +16,10 @@ public class BallSpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(2f);
-            float random_x = Random.Range(0f, 200f);
-            float random_z = 200f - random_x;
+            int sign_x = Random.Range(0, 2) * 2 - 1;
+            float random_x = sign_x * Random.Range(50f, 150f);
             float y = Random.Range(30f, 90f);
-            Instantiate(ballPrefab, new Vector3(random_x, y, random_z), Quaternion.identity);
+            Instantiate(ballPrefab, new Vector3(random_x, y, -100), Quaternion.identity);
         }
     }
 
