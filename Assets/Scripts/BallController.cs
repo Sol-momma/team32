@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    private float speed;
+    private float speed = 0;
     private Vector3 goalPosition = new(0, 30, 1000);
     void Start()
     {
-        speed = Random.Range(100, 200);
     }
 
     // Update is called once per frame
@@ -19,6 +18,15 @@ public class BallController : MonoBehaviour
         if (Vector3.Distance(gameObject.transform.position, goalPosition) < 10f)
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+        if (speed > 1200f)
+        {
+            speed = 1200f;
         }
     }
 
