@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class ArrowController : MonoBehaviour
 {
     private Vector3 initial_position;
-    public ParticleSystem collisionParticleSystemPrefab;
+    [SerializeField] private ParticleSystem collisionParticleSystemPrefab;
+    [SerializeField] private AudioSource collisionSoundPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +44,9 @@ public class ArrowController : MonoBehaviour
             var collisionParticleSystem = Instantiate(collisionParticleSystemPrefab, gameObject.transform.position, Quaternion.identity);
             var collisionParticleSystemController = collisionParticleSystem.GetComponent<CollisionParticleSystemController>();
             collisionParticleSystemController.DestroyAfterPlay();
+            var collisionSound = Instantiate(collisionSoundPrefab, gameObject.transform.position, Quaternion.identity);
+            var collisionAudioSourceController = collisionSound.GetComponent<CollisionAudioSourceController>();
+            collisionAudioSourceController.DestroyAfterPlay();
             Destroy(gameObject);
             Destroy(other.gameObject);
         }

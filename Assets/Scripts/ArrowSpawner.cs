@@ -6,10 +6,11 @@ public class ArrowSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject arrowPrefab;
     private bool canShoot = true;
+    private AudioSource shootArrow;
     // Start is called before the first frame update
     void Start()
     {
-        
+        shootArrow = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -28,6 +29,8 @@ public class ArrowSpawner : MonoBehaviour
             arrow.GetComponent<ArrowController>().Shoot(world_direction.normalized * 20000f);
             canShoot = false;
             StartCoroutine(enableShooting());
+            shootArrow.pitch = Random.Range(0.8f, 1.2f);
+            shootArrow.Play();
         }
     }
 
