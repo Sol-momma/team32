@@ -22,6 +22,9 @@ public class ArrowSpawner : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 world_direction = ray.direction;
 
+            arrow.transform.rotation = Quaternion.LookRotation(world_direction);
+            // rotate 90 degrees around the x axis
+            arrow.transform.Rotate(0, 90, 0);
             arrow.GetComponent<ArrowController>().Shoot(world_direction.normalized * 20000f);
             canShoot = false;
             StartCoroutine(enableShooting());
