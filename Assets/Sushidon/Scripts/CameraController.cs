@@ -48,8 +48,8 @@ public class CameraController : MonoBehaviour
         angle.x -= inputMovement.y * rotateSpeed;
         angle.y += inputMovement.x * rotateSpeed;
 
-        angle.x = Mathf.Clamp(angle.x, -25f, 25f);
-        angle.y = Mathf.Clamp(angle.y, -45f, 45f);
+        angle.x = Mathf.Clamp(angle.x, -50f, 50f);
+        angle.y = Mathf.Clamp(angle.y, -90f, 90f);
 
         mainCamera.gameObject.transform.localEulerAngles = angle;
     }
