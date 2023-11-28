@@ -7,6 +7,8 @@ public class BallSpawner : MonoBehaviour
     [SerializeField] private GameObject ballPrefab;
     private int count = 0;
     private float interval = 2f;
+    private float minSpeed = 30f;
+    private float maxSpeed = 50f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,6 @@ public class BallSpawner : MonoBehaviour
     {
         while (true)
         {
-            interval = 2f / (count / 10f + 1);
             if (interval < 0.1f)
             {
                 interval = 0.1f;
@@ -27,7 +28,7 @@ public class BallSpawner : MonoBehaviour
             float random_x = sign_x * Random.Range(50f, 150f);
             float y = Random.Range(30f, 90f);
             GameObject ballController = Instantiate(ballPrefab, new Vector3(random_x, y, -100), Quaternion.identity);
-            ballController.GetComponent<BallController>().SetSpeed(Random.Range(100f, 200f) + count * 10);
+            ballController.GetComponent<BallController>().SetSpeed(Random.Range(minSpeed, maxSpeed));
             count++;
         }
     }
@@ -36,5 +37,30 @@ public class BallSpawner : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetInterval(float interval)
+    {
+        this.interval = interval;
+    }
+
+    public void SetMinSpeed(float minSpeed)
+    {
+        this.minSpeed = minSpeed;
+    }
+
+    public void IncreaseMinSpped(float minSpeed)
+    {
+        this.minSpeed += minSpeed;
+    }
+
+    public void SetMaxSpeed(float maxSpeed)
+    {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public void IncreaseMaxSpped(float maxSpeed)
+    {
+        this.maxSpeed += maxSpeed;
     }
 }

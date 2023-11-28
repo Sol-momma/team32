@@ -8,6 +8,7 @@ public class BallController : MonoBehaviour
     private Vector3 goalPosition = new(0, 30, 1000);
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class BallController : MonoBehaviour
         this.speed = speed;
         if (speed > 1200f)
         {
-            speed = 1200f;
+            this.speed = 1200f;
         }
     }
 
