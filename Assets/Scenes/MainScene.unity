@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 143991355}
   - component: {fileID: 143991357}
   - component: {fileID: 143991356}
+  - component: {fileID: 143991358}
   m_Layer: 5
   m_Name: StageTextContainer
   m_TagString: Untagged
@@ -193,7 +194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Stage 1
+  m_Text: 
 --- !u!222 &143991357
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -202,6 +203,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143991354}
   m_CullTransparentMesh: 1
+--- !u!114 &143991358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143991354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8dc70a245bd3d4b9790bb999682c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &360108800
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +226,7 @@ GameObject:
   - component: {fileID: 360108801}
   - component: {fileID: 360108803}
   - component: {fileID: 360108802}
+  - component: {fileID: 360108804}
   m_Layer: 5
   m_Name: ScoreText
   m_TagString: Untagged
@@ -281,6 +295,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360108800}
   m_CullTransparentMesh: 1
+--- !u!114 &360108804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360108800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93afa57bb658864ab4377b100bdbd63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &388437170
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +743,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df1093e31abda349b18da1e51165b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 360108802}
+  scoreTextController: {fileID: 360108804}
+  ballSpawnerController: {fileID: 2144557109}
+  stageTextController: {fileID: 143991358}
 --- !u!4 &714007529
 Transform:
   m_ObjectHideFlags: 0
