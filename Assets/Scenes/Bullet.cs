@@ -6,8 +6,16 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // 衝突したオブジェクトにエフェクトを再生してから弾を破棄
-        Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+        // 衝突したオブジェクトにキューブが含まれているか確認
+        if (collision.gameObject.CompareTag("CubeTag"))
+        {
+            // キューブを破棄
+            Destroy(collision.gameObject);
+        }
+
+        // 弾を破棄
         Destroy(gameObject);
     }
+
+
 }
