@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class UFOMovement : MonoBehaviour
@@ -13,8 +14,7 @@ public class UFOMovement : MonoBehaviour
     private void Start()
     {
         timeSinceLastDirectionChange = changeDirectionInterval;
-        direction = Random.insideUnitSphere.normalized;
-        direction.y = 0f;
+        ChangeDirection();
     }
 
     private void Update()
@@ -31,12 +31,17 @@ public class UFOMovement : MonoBehaviour
 
     private void MoveUFO()
     {
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
+        Vector3 newPosition = transform.position + direction * moveSpeed * Time.deltaTime;
+
+        newPosition.x = Mathf.Clamp(newPosition.x, -10f, 10f);
+        newPosition.y = Mathf.Clamp(newPosition.y, -5f, 5f);
+        newPosition.z = Mathf.Clamp(newPosition.z, 0f, 10f);
+
+        transform.position = newPosition;
     }
 
     private void ChangeDirection()
     {
-        direction = Random.insideUnitSphere.normalized;
-        direction.y = 0f;
+        direction = Random.insideUnitSphere.normalized * moveSpeed;
     }
 }
