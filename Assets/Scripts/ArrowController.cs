@@ -17,7 +17,7 @@ public class ArrowController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.transform.position.x > 500f || gameObject.transform.position.z > 500f || gameObject.transform.position.y < 10f)
+        if (gameObject.transform.position.x > 1000f || gameObject.transform.position.z > 1000f || gameObject.transform.position.y < 10f)
         {
             Destroy(gameObject);
         }

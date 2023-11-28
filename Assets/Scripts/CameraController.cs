@@ -45,4 +45,9 @@ public class CameraController : MonoBehaviour
         }
         transform.localRotation = Quaternion.Euler(rotation);
     }
+
+    public void Reset()
+    {
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
+    }
 }

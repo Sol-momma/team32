@@ -18,6 +18,8 @@ public class BallController : MonoBehaviour
         gameObject.transform.Translate(speed * Time.deltaTime * direction.normalized);
         if (Vector3.Distance(gameObject.transform.position, goalPosition) < 10f)
         {
+            GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gameManager.GameOver();
             Destroy(gameObject);
         }
     }

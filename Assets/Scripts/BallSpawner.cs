@@ -9,6 +9,7 @@ public class BallSpawner : MonoBehaviour
     private float interval = 2f;
     private float minSpeed = 30f;
     private float maxSpeed = 50f;
+    public bool isGameOver = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class BallSpawner : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitUntil(() => !isGameOver);
             if (interval < 0.1f)
             {
                 interval = 0.1f;
@@ -27,7 +29,7 @@ public class BallSpawner : MonoBehaviour
             int sign_x = Random.Range(0, 2) * 2 - 1;
             float random_x = sign_x * Random.Range(50f, 150f);
             float y = Random.Range(30f, 90f);
-            GameObject ballController = Instantiate(ballPrefab, new Vector3(random_x, y, -100), Quaternion.identity);
+            GameObject ballController = Instantiate(ballPrefab, new Vector3(random_x, y, -30), Quaternion.identity);
             ballController.GetComponent<BallController>().SetSpeed(Random.Range(minSpeed, maxSpeed));
             count++;
         }
