@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 229381575}
   - component: {fileID: 229381574}
-  - component: {fileID: 229381576}
   - component: {fileID: 229381577}
   m_Layer: 0
   m_Name: GameObject
@@ -174,20 +173,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &229381576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229381573}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 936dc23192b264ad1b25df7fc6ff92c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 825671823085118138, guid: d51c5aac3c43b4ce983a59c83b8bcde0, type: 3}
-  bulletSpeed: 10
 --- !u!114 &229381577
 MonoBehaviour:
   m_ObjectHideFlags: 0
