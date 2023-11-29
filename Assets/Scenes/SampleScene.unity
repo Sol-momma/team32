@@ -157,6 +157,7 @@ MonoBehaviour:
   numberOfObjects: 10
   spawnRadius: 10
   delayBetweenSpawns: 1
+  moveSpeed: 5
 --- !u!4 &229381575
 Transform:
   m_ObjectHideFlags: 0
