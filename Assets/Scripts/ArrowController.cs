@@ -1,21 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.UI;
 
 public class ArrowController : MonoBehaviour
 {
     private Vector3 initial_position;
-    [SerializeField] private ParticleSystem collisionParticleSystemPrefab;
-    [SerializeField] private AudioSource collisionSoundPrefab;
+    private System.Action<GameObject> Release;
+    private ParticleSystem collisionParticleSystem;
+    private AudioSource collisionSound;
     private System.Action<int> AddScore;
     private new Rigidbody rigidbody;
+    private System.Action<ParticleSystem> ReleaseParticleSystem;
+    private System.Action<AudioSource> ReleaseAudioSource;
 
-    public void Initialize(System.Action<int> AddScore)
+    public void Initialize(
+        System.Action<GameObject> Release,
+        System.Action<int> AddScore,
+        ParticleSystem particleSystem,
+        System.Action<ParticleSystem> ReleaseParticleSystem,
+        AudioSource audioSource,
+        System.Action<AudioSource> ReleaseAudioSource)
     {
-        this.AddScore = AddScore;
         rigidbody = GetComponent<Rigidbody>();
         initial_position = gameObject.transform.position;
+        this.Release = Release;
+        this.AddScore = AddScore;
+        collisionParticleSystem = particleSystem;
+        collisionSound = audioSource;
+        this.ReleaseParticleSystem = ReleaseParticleSystem;
+        this.ReleaseAudioSource = ReleaseAudioSource;
     }
 
     // Update is called once per frame
@@ -23,12 +38,16 @@ public class ArrowController : MonoBehaviour
     {
         if (gameObject.transform.position.x > 1000f || gameObject.transform.position.z > 1000f || gameObject.transform.position.y < 10f)
         {
-            Destroy(gameObject);
+            Release(gameObject);
+            ReleaseParticleSystem(collisionParticleSystem);
+            ReleaseAudioSource(collisionSound);
         }
     }
 
     public void Shoot(Vector3 direction)
     {
+        rigidbody.isKinematic = true;
+        rigidbody.isKinematic = false;
         rigidbody.AddForce(direction);
     }
 
@@ -45,24 +64,23 @@ public class ArrowController : MonoBehaviour
 
             PlayParticleSystemOnCollision();
             PlaySoundOnCollision();
-            Destroy(gameObject);
-            Destroy(other.gameObject);
+            Release(gameObject);
         }
     }
 
     void PlayParticleSystemOnCollision()
     {
-        var collisionParticleSystem = Instantiate(collisionParticleSystemPrefab, gameObject.transform.position, Quaternion.identity);
+        collisionParticleSystem.transform.position = gameObject.transform.position;
         var collisionParticleSystemController = collisionParticleSystem.GetComponent<CollisionParticleSystemController>();
-        collisionParticleSystemController.Initialize();
-        collisionParticleSystemController.DestroyAfterPlay();
+        collisionParticleSystemController.Initialize((collisionParticleSystem) => ReleaseParticleSystem(collisionParticleSystem));
+        collisionParticleSystemController.ReleaseAfterPlay();
     }
 
     void PlaySoundOnCollision()
     {
-        var collisionSound = Instantiate(collisionSoundPrefab, gameObject.transform.position, Quaternion.identity);
+        collisionSound.transform.position = gameObject.transform.position;
         var collisionAudioSourceController = collisionSound.GetComponent<CollisionAudioSourceController>();
-        collisionAudioSourceController.Initialize();
-        collisionAudioSourceController.DestroyAfterPlay();
+        collisionAudioSourceController.Initialize((collisionSound) => ReleaseAudioSource(collisionSound));
+        collisionAudioSourceController.ReleaseAfterPlay();
     }
 }

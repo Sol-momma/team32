@@ -5,9 +5,11 @@ using UnityEngine;
 public class CollisionAudioSourceController : MonoBehaviour
 {
     private AudioSource audioSource;
+    private System.Action<AudioSource> Release;
 
-    public void Initialize()
+    public void Initialize(System.Action<AudioSource> Release)
     {
+        this.Release = Release;
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -16,16 +18,15 @@ public class CollisionAudioSourceController : MonoBehaviour
         audioSource.Play();
     }
 
-    public void DestroyAfterPlay()
+    public void ReleaseAfterPlay()
     {
-        StartCoroutine(DestroyAfterPlay_());
+        StartCoroutine(ReleaseAfterPlay_());
     }
 
-    IEnumerator DestroyAfterPlay_()
+    IEnumerator ReleaseAfterPlay_()
     {
         Play();
         yield return new WaitForSeconds(audioSource.clip.length);
-        Destroy(gameObject);
+        Release(audioSource);
     }
 }
-

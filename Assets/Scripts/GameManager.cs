@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BallSpawner ballSpawner;
     [SerializeField] private ArrowSpawner arrowSpawner;
     [SerializeField] private GameOverContainerController gameOverContainerController;
+    private System.Action b;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +62,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(arrow);
         }
+        ballSpawner.ClearPool();
+        arrowSpawner.ClearPool();
         score = 0;
         currentStageScore = 0;
         stage = 1;

@@ -644,6 +644,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 100000, guid: 2efee36b91e57724e99980ed850fd8a9, type: 3}
+  collisionParticleSystemPrefab: {fileID: 8541841996816507970, guid: 7208de6b7b9d74b4ba3e9f83e526d698, type: 3}
+  collisionSoundPrefab: {fileID: 6433916858533772097, guid: c7c9d8cec597f144f9a8755422f31cc6, type: 3}
 --- !u!4 &689554423
 Transform:
   m_ObjectHideFlags: 0
@@ -1502,7 +1504,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 3941497382260639468, guid: 99f89bd551f1f324281c455aa58a4e0f, type: 3}
-  isGameOver: 0
 --- !u!4 &2144557110
 Transform:
   m_ObjectHideFlags: 0

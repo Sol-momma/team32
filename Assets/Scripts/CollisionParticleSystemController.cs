@@ -5,10 +5,12 @@ using UnityEngine;
 public class CollisionParticleSystemController : MonoBehaviour
 {
     private new ParticleSystem particleSystem;
+    private System.Action<ParticleSystem> Release;
 
-    public void Initialize()
+    public void Initialize(System.Action<ParticleSystem> Release)
     {
         particleSystem = GetComponent<ParticleSystem>();
+        this.Release = Release;
     }
 
     void Play()
@@ -16,15 +18,15 @@ public class CollisionParticleSystemController : MonoBehaviour
         particleSystem.Play();
     }
 
-    public void DestroyAfterPlay()
+    public void ReleaseAfterPlay()
     {
-        StartCoroutine(DestroyAfterPlay_());
+        StartCoroutine(ReleaseAfterPlay_());
     }
 
-    public IEnumerator DestroyAfterPlay_()
+    public IEnumerator ReleaseAfterPlay_()
     {
         Play();
         yield return new WaitForSeconds(particleSystem.main.duration);
-        Destroy(gameObject);
+        Release(particleSystem);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class BallSpawner : MonoBehaviour
 {
@@ -10,10 +11,18 @@ public class BallSpawner : MonoBehaviour
     private float maxSpeed = 50f;
     private bool isGameOver = false;
     private System.Action GameOver;
+    private ObjectPool<GameObject> ballPool;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnBall());
+        ballPool = new ObjectPool<GameObject>(
+            createFunc: () => Instantiate(ballPrefab, new Vector3(0, 0, -30), Quaternion.identity),
+            actionOnGet: (ball) => ball.SetActive(true),
+            actionOnRelease: (ball) => ball.SetActive(false),
+            actionOnDestroy: (ball) => Destroy(ball),
+            defaultCapacity: 10,
+            maxSize: 100);
     }
 
     public void Initialize(System.Action GameOver)
@@ -34,11 +43,17 @@ public class BallSpawner : MonoBehaviour
             int sign_x = Random.Range(0, 2) * 2 - 1;
             float random_x = sign_x * Random.Range(50f, 150f);
             float y = Random.Range(30f, 90f);
-            GameObject ballControllerObject = Instantiate(ballPrefab, new Vector3(random_x, y, -30), Quaternion.identity);
-            var ballController = ballControllerObject.GetComponent<BallController>();
-            ballController.Initialize(GameOver);
+            GameObject ball = ballPool.Get();
+            ball.transform.position = new Vector3(random_x, y, -30);
+            var ballController = ball.GetComponent<BallController>();
+            ballController.Initialize(GameOver, (ball) => ballPool.Release(ball));
             ballController.SetSpeed(Random.Range(minSpeed, maxSpeed));
         }
+    }
+
+    public void ClearPool()
+    {
+        ballPool.Clear();
     }
 
 

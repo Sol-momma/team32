@@ -7,6 +7,7 @@ public class BallController : MonoBehaviour
     private float speed = 0;
     private Vector3 goalPosition = new(0, 30, 1000);
     private System.Action GameOver;
+    private System.Action<GameObject> Release;
 
     // Update is called once per frame
     void Update()
@@ -16,13 +17,22 @@ public class BallController : MonoBehaviour
         if (Vector3.Distance(gameObject.transform.position, goalPosition) < 10f)
         {
             GameOver();
-            Destroy(gameObject);
+            Release(gameObject);
         }
     }
 
-    public void Initialize(System.Action GameOver)
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Arrow"))
+        {
+            Release(gameObject);
+        }
+    }
+
+    public void Initialize(System.Action GameOver, System.Action<GameObject> Release)
     {  
         this.GameOver = GameOver;
+        this.Release = Release;
     }
 
     public void SetSpeed(float speed)
@@ -33,5 +43,4 @@ public class BallController : MonoBehaviour
             this.speed = 1200f;
         }
     }
-
 }
