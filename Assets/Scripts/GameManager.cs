@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -15,11 +16,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BallSpawner ballSpawner;
     [SerializeField] private ArrowSpawner arrowSpawner;
     [SerializeField] private GameOverContainerController gameOverContainerController;
-    private System.Action b;
+ 
     // Start is called before the first frame update
     void Start()
     {
         stageTextController.ShowStage(stage);
+        scoreTextContainerController.ShowScore(score);
         arrowSpawner.Initialize(AddScore);
         ballSpawner.Initialize(GameOver);
         gameOverContainerController.Initialize(Restart);
@@ -52,29 +54,31 @@ public class GameManager : MonoBehaviour
 
     private void Restart()
     {
-        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-        foreach (GameObject ball in balls)
-        {
-            Destroy(ball);
-        }
-        GameObject[] arrows = GameObject.FindGameObjectsWithTag("Arrow");
-        foreach (GameObject arrow in arrows)
-        {
-            Destroy(arrow);
-        }
-        ballSpawner.ClearPool();
-        arrowSpawner.ClearPool();
-        score = 0;
-        currentStageScore = 0;
-        stage = 1;
-        scoreTextContainerController.ShowScore(score);
-        stageTextController.ShowStage(stage);
-        isGameOver = false;
+        //GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+        //foreach (GameObject ball in balls)
+        //{
+        //    Destroy(ball);
+        //}
+        //GameObject[] arrows = GameObject.FindGameObjectsWithTag("Arrow");
+        //foreach (GameObject arrow in arrows)
+        //{
+        //    Destroy(arrow);
+        //}
+        //ballSpawner.ClearPool();
+        //arrowSpawner.ClearPool();
+        //score = 0;
+        //currentStageScore = 0;
+        //stage = 1;
+        //scoreTextContainerController.ShowScore(score);
+        //stageTextController.ShowStage(stage);
+        //isGameOver = false;
 
-        gameOverContainerController.OnRestart();
-        cameraController.OnRestart();
-        ballSpawner.OnRestart();
-        arrowSpawner.OnRestart();
+        //gameOverContainerController.OnRestart();
+        //cameraController.OnRestart();
+        //ballSpawner.OnRestart();
+        //arrowSpawner.OnRestart();
+
+        SceneManager.LoadScene("MainScene");
     }
 
     private void GameOver()

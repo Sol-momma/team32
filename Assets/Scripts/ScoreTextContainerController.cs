@@ -15,6 +15,9 @@ public class ScoreTextContainerController : MonoBehaviour
 
     public void ShowScore(int score)
     {
+        if (scoreTextController == null)
+            scoreTextController = GetComponentInChildren<ScoreTextController>();
+        
         scoreTextController.ShowScore(score);
     }
 
@@ -22,11 +25,5 @@ public class ScoreTextContainerController : MonoBehaviour
     {
         scoreTextController.ShowScore(score);
         addedScoreTextController.ShowAddedScore(addedScore);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
