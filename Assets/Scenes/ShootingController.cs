@@ -10,9 +10,11 @@ public class ShootingController : MonoBehaviour
         // マウスの左クリックを検知
         if (Input.GetMouseButtonDown(0))
         {
-            ShootBullet();
+            // クリックされた時の処理をここに追加
+            Debug.Log("Mouse Clicked!");
         }
     }
+
 
     void ShootBullet()
     {
