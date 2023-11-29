@@ -34,13 +34,6 @@ public class RandomObjectGenerator : MonoBehaviour
                 // Z方向に速度を設定
                 cubeRigidbody.velocity = Vector3.forward * moveSpeed;
             }
-
-            // ClickToDeleteスクリプトをアタッチ
-            ClickToDelete clickToDeleteScript = newCube.AddComponent<ClickToDelete>();
-
-            // 生成されたキューブに対してClickToDeleteスクリプトがアタッチされる
-            clickToDeleteScript.enabled = true;
-
             generatedObjectsCount++;
         }
         else
