@@ -4,32 +4,27 @@ using UnityEngine;
 
 public class CollisionAudioSourceController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private AudioSource audioSource;
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Play()
     {
-        GetComponent<AudioSource>().Play();
+        audioSource.Play();
     }
 
     public void DestroyAfterPlay()
     {
-        StartCoroutine(_DestroyAfterPlay());
+        StartCoroutine(DestroyAfterPlay_());
     }
 
-    IEnumerator _DestroyAfterPlay()
+    IEnumerator DestroyAfterPlay_()
     {
         Play();
-        yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length);
+        yield return new WaitForSeconds(audioSource.clip.length);
         Destroy(gameObject);
     }
 }

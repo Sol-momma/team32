@@ -5,15 +5,20 @@ using UnityEngine;
 public class BallSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject ballPrefab;
-    private int count = 0;
     private float interval = 2f;
     private float minSpeed = 30f;
     private float maxSpeed = 50f;
-    public bool isGameOver = false;
+    private bool isGameOver = false;
+    private System.Action GameOver;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnBall());
+    }
+
+    public void Initialize(System.Action GameOver)
+    {
+        this.GameOver = GameOver;
     }
 
     private IEnumerator SpawnBall()
@@ -29,16 +34,26 @@ public class BallSpawner : MonoBehaviour
             int sign_x = Random.Range(0, 2) * 2 - 1;
             float random_x = sign_x * Random.Range(50f, 150f);
             float y = Random.Range(30f, 90f);
-            GameObject ballController = Instantiate(ballPrefab, new Vector3(random_x, y, -30), Quaternion.identity);
-            ballController.GetComponent<BallController>().SetSpeed(Random.Range(minSpeed, maxSpeed));
-            count++;
+            GameObject ballControllerObject = Instantiate(ballPrefab, new Vector3(random_x, y, -30), Quaternion.identity);
+            var ballController = ballControllerObject.GetComponent<BallController>();
+            ballController.Initialize(GameOver);
+            ballController.SetSpeed(Random.Range(minSpeed, maxSpeed));
         }
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void OnGameOver()
     {
-        
+        enabled = false;
+        isGameOver = true;
+    }
+
+    public void OnRestart()
+    {
+        SetMinSpeed(30f);
+        SetMaxSpeed(50f);
+        enabled = true;
+        isGameOver = false;
     }
 
     public void SetInterval(float interval)
@@ -51,7 +66,7 @@ public class BallSpawner : MonoBehaviour
         this.minSpeed = minSpeed;
     }
 
-    public void IncreaseMinSpped(float minSpeed)
+    public void IncreaseMinSpeed(float minSpeed)
     {
         this.minSpeed += minSpeed;
     }
@@ -61,7 +76,7 @@ public class BallSpawner : MonoBehaviour
         this.maxSpeed = maxSpeed;
     }
 
-    public void IncreaseMaxSpped(float maxSpeed)
+    public void IncreaseMaxSpeed(float maxSpeed)
     {
         this.maxSpeed += maxSpeed;
     }

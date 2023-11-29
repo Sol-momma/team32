@@ -5,12 +5,6 @@ using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -49,5 +43,10 @@ public class CameraController : MonoBehaviour
     public void Reset()
     {
         transform.localRotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public void OnRestart()
+    {
+        Reset();
     }
 }

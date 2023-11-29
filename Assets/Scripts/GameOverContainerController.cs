@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class GameOverContainerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private RestartButtonController restartButtonController;
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize(System.Action OnRestart)
     {
-        
+        restartButtonController = GetComponentInChildren<RestartButtonController>();
+        restartButtonController.Initialize(OnRestart);
     }
 
     public void OnGameOver()

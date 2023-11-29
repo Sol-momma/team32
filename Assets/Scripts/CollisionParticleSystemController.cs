@@ -4,32 +4,27 @@ using UnityEngine;
 
 public class CollisionParticleSystemController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private new ParticleSystem particleSystem;
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize()
     {
-        
+        particleSystem = GetComponent<ParticleSystem>();
     }
 
     void Play()
     {
-        GetComponent<ParticleSystem>().Play();
+        particleSystem.Play();
     }
 
     public void DestroyAfterPlay()
     {
-        StartCoroutine(_DestroyAfterPlay());
+        StartCoroutine(DestroyAfterPlay_());
     }
 
-    public IEnumerator _DestroyAfterPlay()
+    public IEnumerator DestroyAfterPlay_()
     {
         Play();
-        yield return new WaitForSeconds(GetComponent<ParticleSystem>().main.duration);
+        yield return new WaitForSeconds(particleSystem.main.duration);
         Destroy(gameObject);
     }
 }

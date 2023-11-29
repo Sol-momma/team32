@@ -7,24 +7,21 @@ public class GameManager : MonoBehaviour
 {
     private int score = 0;
     private int currentStageScore = 0;
-    [SerializeField] private ScoreTextController scoreTextController;
-    [SerializeField] private BallSpawner ballSpawner;
-    [SerializeField] private StageTextController stageTextController;
-    [SerializeField] private CameraController cameraController;
-    [SerializeField] private ArrowSpawner arrowSpawner;
-    [SerializeField] private GameOverContainerController gameOverContainerController;
     private int stage = 1;
     private bool isGameOver = false;
+    [SerializeField] private ScoreTextContainerController scoreTextContainerController;
+    [SerializeField] private StageTextController stageTextController;
+    [SerializeField] private CameraController cameraController;
+    [SerializeField] private BallSpawner ballSpawner;
+    [SerializeField] private ArrowSpawner arrowSpawner;
+    [SerializeField] private GameOverContainerController gameOverContainerController;
     // Start is called before the first frame update
     void Start()
     {
         stageTextController.ShowStage(stage);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        scoreTextController.ShowScore(score);
+        arrowSpawner.Initialize(AddScore);
+        ballSpawner.Initialize(GameOver);
+        gameOverContainerController.Initialize(Restart);
     }
 
     public int GetScore()
@@ -37,11 +34,11 @@ public class GameManager : MonoBehaviour
         stage++;
         currentStageScore -= 500;
         stageTextController.ShowStage(stage);
-        ballSpawner.IncreaseMaxSpped(20f);
-        ballSpawner.IncreaseMinSpped(20f);
+        ballSpawner.IncreaseMaxSpeed(20f);
+        ballSpawner.IncreaseMinSpeed(20f);
     }
 
-    public void AddScore(int value)
+    private void AddScore(int value)
     {
         score += value;
         currentStageScore += value;
@@ -49,9 +46,10 @@ public class GameManager : MonoBehaviour
         {
             UpdateStage();
         }
+        scoreTextContainerController.ShowScore(score, value);
     }
 
-    public void Restart()
+    private void Restart()
     {
         GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
         foreach (GameObject ball in balls)
@@ -63,28 +61,28 @@ public class GameManager : MonoBehaviour
         {
             Destroy(arrow);
         }
-        gameOverContainerController.OnRestart();
-        cameraController.Reset();
         score = 0;
         currentStageScore = 0;
         stage = 1;
+        scoreTextContainerController.ShowScore(score);
         stageTextController.ShowStage(stage);
-        ballSpawner.SetMinSpeed(30f);
-        ballSpawner.SetMaxSpeed(50f);
-        ballSpawner.enabled = true;
-        ballSpawner.isGameOver = false;
-        arrowSpawner.enabled = true;
+        isGameOver = false;
+
+        gameOverContainerController.OnRestart();
+        cameraController.OnRestart();
+        ballSpawner.OnRestart();
+        arrowSpawner.OnRestart();
     }
 
-    public void GameOver()
+    private void GameOver()
     {
         if (isGameOver)
         {
             return;
         }
-        arrowSpawner.enabled = false;
-        ballSpawner.enabled = false;
-        ballSpawner.isGameOver = true;
+        isGameOver = true;
+        arrowSpawner.OnGameOver();
+        ballSpawner.OnGameOver();
         gameOverContainerController.OnGameOver();
     }
 }

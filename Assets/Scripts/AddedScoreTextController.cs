@@ -6,24 +6,13 @@ using UnityEngine.UI;
 public class AddedScoreTextController : MonoBehaviour
 {
     [SerializeField] private Text AddedScoreText;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void ShowAddedScoreText(int score)
+    public void ShowAddedScore(int score)
     {
         StartCoroutine(_ShowAddedScoreText(score));
     }
 
-    public IEnumerator _ShowAddedScoreText(int score)
+    private IEnumerator _ShowAddedScoreText(int score)
     {
         AddedScoreText.text = "+" + score;
         yield return new WaitForSeconds(1.0f);

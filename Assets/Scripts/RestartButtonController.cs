@@ -6,22 +6,10 @@ using UnityEngine.UI;
 public class RestartButtonController : MonoBehaviour
 {
     private Button restartButton;
-    // Start is called before the first frame update
-    void Start()
+
+    public void Initialize(System.Action OnRestart)
     {
         restartButton = GetComponent<Button>();
-        restartButton.onClick.AddListener(Restart);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void Restart()
-    {
-        var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        gameManager.Restart();
+        restartButton.onClick.AddListener(() => OnRestart());
     }
 }

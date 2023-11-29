@@ -878,10 +878,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df1093e31abda349b18da1e51165b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreTextController: {fileID: 360108804}
-  ballSpawner: {fileID: 2144557109}
+  scoreTextContainerController: {fileID: 1104116774}
   stageTextController: {fileID: 143991358}
   cameraController: {fileID: 963194230}
+  ballSpawner: {fileID: 2144557109}
   arrowSpawner: {fileID: 689554422}
   gameOverContainerController: {fileID: 906657055}
 --- !u!4 &714007529
@@ -1125,6 +1125,7 @@ GameObject:
   - component: {fileID: 1104116771}
   - component: {fileID: 1104116773}
   - component: {fileID: 1104116772}
+  - component: {fileID: 1104116774}
   m_Layer: 5
   m_Name: ScoreTextContainer
   m_TagString: Untagged
@@ -1195,6 +1196,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1104116770}
   m_CullTransparentMesh: 1
+--- !u!114 &1104116774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104116770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad9ff359bd041f41bbecaabc304fc96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1193873093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1513,7 +1526,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1319094528}
   - {fileID: 2144557110}
+  - {fileID: 689554423}
   - {fileID: 388437173}
   - {fileID: 714007529}
   - {fileID: 623135726}
-  - {fileID: 689554423}
