@@ -195,13 +195,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229381573}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b446f9648e8f545a7ad38a468f1cb6f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: d600b17c4cca146709eb34bf676d7dcc, type: 3}
-  hotSpot: {x: 0, y: 0}
+  hotSpot: {x: 10, y: 10}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
