@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RandomObjectGenerator : MonoBehaviour
 {
-    public GameObject cubePrefab;
+    public GameObject[] objectPrefabs; // キューブ以外のオブジェクトのプレハブを配列で指定
     public int numberOfObjects = 10;
     public float spawnRadius = 10f;
     public float delayBetweenSpawns = 1f;
@@ -22,17 +22,20 @@ public class RandomObjectGenerator : MonoBehaviour
             Vector3 randomPosition = Random.insideUnitSphere * spawnRadius;
             randomPosition.y = 0;
 
-            GameObject newCube = Instantiate(cubePrefab, randomPosition, Quaternion.identity);
+            // ランダムなプレハブを選択
+            GameObject selectedPrefab = objectPrefabs[Random.Range(0, objectPrefabs.Length)];
+
+            GameObject newObject = Instantiate(selectedPrefab, randomPosition, Quaternion.identity);
 
             // Rigidbodyがアタッチされている前提
-            Rigidbody cubeRigidbody = newCube.GetComponent<Rigidbody>();
-            if (cubeRigidbody != null)
+            Rigidbody objectRigidbody = newObject.GetComponent<Rigidbody>();
+            if (objectRigidbody != null)
             {
                 // 重力の影響を無効にする
-                cubeRigidbody.useGravity = false;
+                objectRigidbody.useGravity = false;
 
                 // Z方向に速度を設定
-                cubeRigidbody.velocity = Vector3.forward * moveSpeed;
+                objectRigidbody.velocity = Vector3.forward * moveSpeed;
             }
             generatedObjectsCount++;
         }

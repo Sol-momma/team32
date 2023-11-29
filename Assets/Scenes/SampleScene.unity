@@ -153,7 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9e8091534af4c2c957970166d2c516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 7257627549267273752, guid: 81e82d28f08b948c38c79ff01bd75e90, type: 3}
+  objectPrefabs:
+  - {fileID: 7257627549267273752, guid: 81e82d28f08b948c38c79ff01bd75e90, type: 3}
+  - {fileID: 5032526528453829346, guid: e665c1adb1b1542e89a604cc77a16fa2, type: 3}
   numberOfObjects: 10
   spawnRadius: 10
   delayBetweenSpawns: 1
