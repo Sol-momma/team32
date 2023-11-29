@@ -5,10 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    // スコープ
-    private Vector3 scopePosition;
-    private float scopeSpeed = 0.05f;
-
     // 発射
     [SerializeField] private float fireRate = 0.25f;
     [SerializeField] private float weaponRange = 50f;
@@ -17,11 +13,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Camera mainCamera;
 
-
-    private void Start()
-    {
-        scopePosition = Vector3.zero;
-    }
 
     public void OnFire(InputAction.CallbackContext value)
     {
@@ -42,11 +33,16 @@ public class PlayerController : MonoBehaviour
 
             if (Physics.Raycast(rayOrigin, mainCamera.transform.forward, out hit, weaponRange))
             {
-                TargetsController health  = hit.collider.GetComponent<TargetsController>();
+                TargetsController health = hit.collider.GetComponent<TargetsController>();
 
                 if (health != null)
                 {
                     health.OnHit();
+                    UFOMovement ufoMovement = hit.collider.GetComponent<UFOMovement>();
+                    if (ufoMovement != null)
+                    {
+                        ufoMovement.Land();
+                    }
                 }
             }
             isFire = false;

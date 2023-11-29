@@ -5,21 +5,30 @@ using UnityEngine;
 
 public class UFOMovement : MonoBehaviour
 {
+    public LandingEffect landingEffect;
+
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float changeDirectionInterval = 3f;
 
+    [SerializeField] private float floatSpeed = 1.5f;
+    [SerializeField] private float floatAmount = 0.5f;
+
     private float timeSinceLastDirectionChange;
     private Vector3 direction;
+    private Vector3 startPosition;
 
     private void Start()
     {
         timeSinceLastDirectionChange = changeDirectionInterval;
         ChangeDirection();
+
+        startPosition = transform.position;
     }
 
     private void Update()
     {
         MoveUFO();
+        FloatUFO();
 
         timeSinceLastDirectionChange += Time.deltaTime;
         if (timeSinceLastDirectionChange >= changeDirectionInterval)
@@ -43,5 +52,19 @@ public class UFOMovement : MonoBehaviour
     private void ChangeDirection()
     {
         direction = Random.insideUnitSphere.normalized * moveSpeed;
+    }
+
+    void FloatUFO()
+    {
+        float newY = startPosition.y + Mathf.Sin(Time.time * floatSpeed) * floatAmount;
+        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+    }
+
+    public void Land()
+    {
+        if (landingEffect != null)
+        {
+            landingEffect.PlayLandingEffect();
+        }
     }
 }
