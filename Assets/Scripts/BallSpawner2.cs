@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallSpawner : MonoBehaviour
+public class BallSpawner2 : MonoBehaviour
 {
     [SerializeField] private GameObject ballPrefab;
     private GameManager gameManager; // GameManagerへの参照を追加
