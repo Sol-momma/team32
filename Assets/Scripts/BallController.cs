@@ -8,11 +8,29 @@ public class BallController : MonoBehaviour
     private Vector3 goalPosition = new(0, 30, 1000);
     void Start()
     {
-        speed = Random.Range(100, 200);
+        if (GameManager.stageNumber == 2)
+        {
+            speed = Random.Range(100, 200);
+        }
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        switch (GameManager.stageNumber)
+        {
+            case 1:
+                break;
+            case 2:
+                Stage2();
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
+    }
+
+    void Stage2()
     {
         Vector3 direction = goalPosition - gameObject.transform.position;
         gameObject.transform.Translate(speed * Time.deltaTime * direction.normalized);
@@ -21,5 +39,4 @@ public class BallController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }

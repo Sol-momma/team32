@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArrowSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject arrowPrefab;
-    private bool canShoot = true;
+    //private bool canShoot = true;
     private AudioSource shootArrow;
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class ArrowSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canShoot)
+        if (Input.GetMouseButtonDown(0) /*&& canShoot*/)
         {
             GameObject arrow = Instantiate(arrowPrefab, new Vector3(0, 20, 0), Quaternion.identity);
                
@@ -26,9 +26,9 @@ public class ArrowSpawner : MonoBehaviour
             arrow.transform.rotation = Quaternion.LookRotation(world_direction);
             // rotate 90 degrees around the x axis
             arrow.transform.Rotate(0, 90, 0);
-            arrow.GetComponent<ArrowController>().Shoot(world_direction.normalized * 20000f);
-            canShoot = false;
-            StartCoroutine(enableShooting());
+            arrow.GetComponent<ArrowController>().Shoot(world_direction.normalized * 50000f);
+            //canShoot = false;
+            //StartCoroutine(enableShooting());
             shootArrow.pitch = Random.Range(0.8f, 1.2f);
             shootArrow.Play();
         }
@@ -37,6 +37,6 @@ public class ArrowSpawner : MonoBehaviour
     IEnumerator enableShooting()
     {
         yield return new WaitForSeconds(1f);
-        canShoot = true;
+        //canShoot = true;
     }
 }
