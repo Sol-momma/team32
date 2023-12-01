@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     public int collisionCount = 0; // 衝突回数をカウントする変数を追加
     public bool isGameActive = true; // isGameActiveをtrueに初期設定
+    public TimerRank timerRank; // TimerRankへの参照を追加
     // Start is called before the first frame update
     void Start()
     {

@@ -7,12 +7,19 @@ using UnityEngine.UI;
 public class TimerRank : MonoBehaviour
 {
     [SerializeField] Text timerText;
-    private float timer;
+    public float timer;
     private bool timeStop;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        timer = 0;
+    }
+
 
     void Start()
     {
-        timer = 0;
+        
     }
     public void StopTimer()
     {
@@ -24,12 +31,19 @@ public class TimerRank : MonoBehaviour
         if (!timeStop)
         {
             timer += Time.deltaTime;
-            timerText.text = timer.ToString("f2");
+            if (timerText != null) // timerTextがnullでないことを確認
+            {
+                timerText.text = timer.ToString("f2");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             timeStop = true;
         }
+    }
+    public float GetTime()
+    {
+        return timer;
     }
 }

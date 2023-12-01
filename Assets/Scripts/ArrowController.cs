@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ArrowController : MonoBehaviour
 {
@@ -58,6 +59,8 @@ public class ArrowController : MonoBehaviour
                 timerRank.StopTimer();
                 gameManager.isGameActive = false; // isGameActive変数をfalseにする
                 gameManager.DestroyAllBalls(); // すべてのボールを消去する
+                // ScoreResultに移動する
+                SceneManager.LoadScene("ScoreResult");
             }
         }
     }
