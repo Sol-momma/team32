@@ -14,6 +14,10 @@ public class TimerRank : MonoBehaviour
     {
         timer = 0;
     }
+    public void StopTimer()
+    {
+        timeStop = true;
+    }
 
     void Update()
     {

@@ -8,12 +8,12 @@ public class BallSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnBall());
+        StartCoroutine(SpawnBall(5));
     }
 
-    private IEnumerator SpawnBall()
+    private IEnumerator SpawnBall(int numberOfBalls)
     {
-        while (true)
+        for (int i = 0; i < numberOfBalls; i++)
         {
             yield return new WaitForSeconds(2f);
             int sign_x = Random.Range(0, 2) * 2 - 1;

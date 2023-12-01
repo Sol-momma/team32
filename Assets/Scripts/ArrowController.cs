@@ -49,6 +49,8 @@ public class ArrowController : MonoBehaviour
             collisionAudioSourceController.DestroyAfterPlay();
             Destroy(gameObject);
             Destroy(other.gameObject);
+            TimerRank timerRank = GameObject.Find("TimerObject").GetComponent<TimerRank>(); // TimerObjectはタイマーがアタッチされているゲームオブジェクトの名前です
+            timerRank.StopTimer();
         }
     }
 }
