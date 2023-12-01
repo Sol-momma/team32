@@ -13,7 +13,7 @@ public class BallSpawner : MonoBehaviour
 
     private IEnumerator SpawnBall(int numberOfBalls)
     {
-        for (int i = 0; i < numberOfBalls; i++)
+        while(true)
         {
             yield return new WaitForSeconds(2f);
             int sign_x = Random.Range(0, 2) * 2 - 1;
