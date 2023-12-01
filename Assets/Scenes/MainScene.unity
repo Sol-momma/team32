@@ -449,6 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 1161648260}
   timer: 0
+  startTimer: 0
 --- !u!1 &623135722
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +869,7 @@ MonoBehaviour:
   scoreText: {fileID: 360108802}
   collisionCount: 0
   isGameActive: 1
-  timerRank: {fileID: 0}
+  timerRank: {fileID: 608752087}
   text: {fileID: 2141762954}
   ballSpawner:
   - {fileID: 2144557108}

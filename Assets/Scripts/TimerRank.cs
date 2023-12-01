@@ -9,11 +9,13 @@ public class TimerRank : MonoBehaviour
     [SerializeField] Text timerText;
     public float timer;
     private bool timeStop;
+    public bool startTimer; // タイマーを開始するためのフラグ
 
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         timer = 0;
+        startTimer = false; // 初期状態ではタイマーは開始しない
     }
 
 
@@ -28,7 +30,7 @@ public class TimerRank : MonoBehaviour
 
     void Update()
     {
-        if (!timeStop)
+        if (!timeStop && startTimer) // startTimerフラグがtrueのときだけタイマーを更新
         {
             timer += Time.deltaTime;
             if (timerText != null) // timerTextがnullでないことを確認
@@ -45,5 +47,10 @@ public class TimerRank : MonoBehaviour
     public float GetTime()
     {
         return timer;
+    }
+    // タイマーの開始を制御するためのメソッド
+    public void StartTimer()
+    {
+        startTimer = true;
     }
 }

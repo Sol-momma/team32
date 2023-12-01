@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         text.SetActive(false);
         arrowSpawner.SetActive(true);
         ballSpawner[0].SetActive(true);
+        timerRank.StartTimer(); // タイマーを開始
     }
 
     void Update()
