@@ -61,8 +61,10 @@ public class ArrowController : MonoBehaviour
                 timerRank.StopTimer();
                 gameManager.isGameActive = false; // isGameActive変数をfalseにする
                 gameManager.DestroyAllBalls(); // すべてのボールを消去する
-                // ScoreResultに移動する
-                SceneManager.LoadScene("ScoreResult");
+                // SceneTransitionManagerを取得
+                SceneTransitionManager stm = FindObjectOfType<SceneTransitionManager>();
+                // 遅延後にシーン遷移を行うメソッドを呼び出す
+                stm.TransitionToScene("ScoreResult");
             }
         }
     }
