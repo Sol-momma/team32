@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     [SerializeField] private Text scoreText;
     public int collisionCount = 0; // 衝突回数をカウントする変数を追加
+    public bool isGameActive = true; // isGameActiveをtrueに初期設定
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +29,13 @@ public class GameManager : MonoBehaviour
     public void AddScore(int value)
     {
         score += value;
+    }
+    public void DestroyAllBalls() // すべてのボールを消去する新しいメソッド
+    {
+        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+        foreach (GameObject ball in balls)
+        {
+            Destroy(ball);
+        }
     }
 }

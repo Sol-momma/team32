@@ -56,6 +56,8 @@ public class ArrowController : MonoBehaviour
             {
                 TimerRank timerRank = GameObject.Find("TimerObject").GetComponent<TimerRank>(); // TimerObjectはタイマーがアタッチされているゲームオブジェクトの名前です
                 timerRank.StopTimer();
+                gameManager.isGameActive = false; // isGameActive変数をfalseにする
+                gameManager.DestroyAllBalls(); // すべてのボールを消去する
             }
         }
     }
