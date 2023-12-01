@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     private int score = 0;
     [SerializeField] private Text scoreText;
+    public int collisionCount = 0; // 衝突回数をカウントする変数を追加
     // Start is called before the first frame update
     void Start()
     {
