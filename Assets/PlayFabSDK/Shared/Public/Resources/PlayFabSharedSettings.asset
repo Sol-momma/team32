@@ -15,7 +15,7 @@ MonoBehaviour:
   TitleId: E8BF6
   DeveloperSecretKey: 6XSA6QFEPEO8HPFYWI9UKUC3N6JYM34BZN6BRG8ODWQ6XX9JWU
   ProductionEnvironmentUrl: 
-  RequestType: 2
+  RequestType: 0
   DisableDeviceInfo: 0
   DisableFocusTimeCollection: 0
   RequestTimeout: 2000
