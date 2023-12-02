@@ -75,3 +75,4 @@ crashlytics-build.properties
 .vscode/
 ProjectSettings/BurstAotSettings_StandaloneOSX.json
 ProjectSettings/CommonBurstAotSettings.json
+ProjectSettings/
