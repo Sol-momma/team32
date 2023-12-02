@@ -29,7 +29,7 @@ public class TimerRank : MonoBehaviour
 
     void Start()
     {
-        
+
     }
     public void StopTimer()
     {
@@ -37,28 +37,40 @@ public class TimerRank : MonoBehaviour
     }
 
     void Update()
+{
+    Debug.Log(timerText);
+    if (timerText == null)
     {
-        if (!timeStop && startTimer) // startTimerフラグがtrueのときだけタイマーを更新
+        var TimeText = GameObject.Find("TimeText");
+        if (TimeText != null)
         {
-            timer += Time.deltaTime;
-            if (timerText != null) // timerTextがnullでないことを確認
-            {
-                timerText.text = timer.ToString("f2");
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            timeStop = true;
+            timerText = TimeText.GetComponent<Text>();
         }
     }
+
+    if (!timeStop && startTimer) // startTimerフラグがtrueのときだけタイマーを更新
+    {
+        timer += Time.deltaTime;
+        if (timerText != null) // timerTextがnullでないことを確認
+        {
+            timerText.text = timer.ToString("f2");
+        }
+    }
+
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+        timeStop = true;
+    }
+}
     public float GetTime()
     {
         return timer;
     }
     // タイマーの開始を制御するためのメソッド
     public void StartTimer()
-    {
-        startTimer = true;
-    }
+{
+    timer = 0f;
+    startTimer = true;
+    timeStop = false;
+}
 }

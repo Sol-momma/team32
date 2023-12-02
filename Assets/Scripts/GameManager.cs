@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         ballSpawner[stageNumber].SetActive(true);
         isClicked = false;
 
-        timerRank.StartTimer(); // タイマーを開始
+        TimerRank.Instance.StartTimer(); // タイマーを開始
   
     }
 
