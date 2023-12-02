@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class TimerRank : MonoBehaviour
 {
+    public static TimerRank Instance { get; private set; }
     [SerializeField] Text timerText;
     public float timer;
     private bool timeStop;
@@ -13,7 +14,16 @@ public class TimerRank : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         timer = 0;
         startTimer = false; // 初期状態ではタイマーは開始しない
     }
