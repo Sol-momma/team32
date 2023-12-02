@@ -18,7 +18,7 @@ public class ArrowController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.transform.position.x > 500f || gameObject.transform.position.z > 500f || gameObject.transform.position.y < 2f)
+        if (gameObject.transform.position.x > 500f || gameObject.transform.position.z > 500f || gameObject.transform.position.y < 10f)
         {
             Destroy(gameObject);
         }
@@ -54,7 +54,7 @@ public class ArrowController : MonoBehaviour
             gameManager.BallHit();
             gameManager.collisionCount++;
             // 衝突回数の定義
-            int collisionMax = 63;
+            int collisionMax = 42;
             // 衝突回数が21になったらタイマーを停止
             if (gameManager.collisionCount == collisionMax)
             {

@@ -18,7 +18,7 @@ public class BallSpawner1 : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             for (int j = 0; j < 7; j++)
             {
-                Instantiate(ballPrefab, new Vector3(-150f + 50 * j, 10f + 40 * i, 200f), Quaternion.identity);
+                Instantiate(ballPrefab, new Vector3(-90f + 30 * j, 10f + 30 * i, 150f), Quaternion.identity);
             }
         }
     }

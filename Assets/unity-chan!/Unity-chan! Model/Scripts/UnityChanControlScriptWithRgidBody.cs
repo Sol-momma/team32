@@ -5,7 +5,6 @@
 //
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
 
 namespace UnityChan
 {
@@ -31,9 +30,7 @@ namespace UnityChan
 		// 旋回速度
 		public float rotateSpeed = 2.0f;
 		// ジャンプ威力
-		public float jumpPower = 3.0f;
-
-		public Plane plane = new Plane(Vector3.forward, new Vector3(0, 0, 80));
+		public float jumpPower = 3.0f; 
 		// キャラクターコントローラ（カプセルコライダ）の参照
 		private CapsuleCollider col;
 		private Rigidbody rb;
@@ -55,9 +52,8 @@ namespace UnityChan
 
 		private bool canRotate = true;
 
-
 		// 初期化
-		void Start()
+		void Start ()
 		{
 			// Animatorコンポーネントを取得する
 			anim = GetComponent<Animator> ();
@@ -71,25 +67,13 @@ namespace UnityChan
 			orgVectColCenter = col.center;
 		}
 
+
         // 以下、メイン処理.リジッドボディと絡めるので、FixedUpdate内で処理を行う.
 
-        void FixedUpdate()
+        void FixedUpdate ()
 		{
-            // カメラとマウスの位置を元にRayを準備
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			float h = Input.GetAxis ("Horizontal");             // 入力デバイスの水平軸をhで定義
 
-            if (plane.Raycast(ray, out float distance) && canRotate)
-            {
-                // 距離を元に交点を算出して、交点の方を向く
-                var lookPoint = ray.GetPoint(distance);
-                transform.LookAt(lookPoint);
-				// limit rotation x from -30 to 0
-				var rotation = transform.rotation.eulerAngles;
-				rotation.x = 0;
-				transform.rotation = Quaternion.Euler(rotation);
-            }
-            float h = Input.GetAxis ("Horizontal");             // 入力デバイスの水平軸をhで定義
-			h = 0;
 			if (!canRotate)
 			{
                 h = 0;
@@ -100,6 +84,8 @@ namespace UnityChan
 			anim.speed = animSpeed;								// Animatorのモーション再生速度に animSpeedを設定する
 			currentBaseState = anim.GetCurrentAnimatorStateInfo (0);	// 参照用のステート変数にBase Layer (0)の現在のステートを設定する
 			rb.useGravity = true;//ジャンプ中に重力を切るので、それ以外は重力の影響を受けるようにする
+		
+		
 		
 			// 以下、キャラクターの移動処理
 			//velocity = new Vector3 (0, 0, v);		// 上下のキー入力からZ軸方向の移動量を取得
@@ -112,17 +98,17 @@ namespace UnityChan
 			//	velocity *= backwardSpeed;	// 移動速度を掛ける
 			//}
 		
-			//if (Input.GetButtonDown ("Jump")) {	// スペースキーを入力したら
+			if (Input.GetButtonDown ("Jump")) {	// スペースキーを入力したら
 
-			//	//アニメーションのステートがLocomotionの最中のみジャンプできる
-			//	if (currentBaseState.fullPathHash == locoState) {
-			//		//ステート遷移中でなかったらジャンプできる
-			//		if (!anim.IsInTransition (0)) {
-			//			rb.AddForce (Vector3.up * jumpPower, ForceMode.VelocityChange);
-			//			anim.SetBool ("Jump", true);		// Animatorにジャンプに切り替えるフラグを送る
-			//		}
-			//	}
-			//}
+				//アニメーションのステートがLocomotionの最中のみジャンプできる
+				if (currentBaseState.fullPathHash == locoState) {
+					//ステート遷移中でなかったらジャンプできる
+					if (!anim.IsInTransition (0)) {
+						rb.AddForce (Vector3.up * jumpPower, ForceMode.VelocityChange);
+						anim.SetBool ("Jump", true);		// Animatorにジャンプに切り替えるフラグを送る
+					}
+				}
+			}
 		
 
 			// 上下のキー入力でキャラクターを移動させる
@@ -135,69 +121,69 @@ namespace UnityChan
 			// 以下、Animatorの各ステート中での処理
 			// Locomotion中
 			// 現在のベースレイヤーがlocoStateの時
-			//if (currentBaseState.fullPathHash == locoState) {
-			//	//カーブでコライダ調整をしている時は、念のためにリセットする
-			//	if (useCurves) {
-			//		resetCollider ();
-			//	}
-			//}
-			// JUMP中の処理
-			// 現在のベースレイヤーがjumpStateの時
-			//else if (currentBaseState.fullPathHash == jumpState) {
-			//		cameraObject.SendMessage ("setCameraPositionJumpView");	// ジャンプ中のカメラに変更
-			//		// ステートがトランジション中でない場合
-			//		if (!anim.IsInTransition (0)) {
+			if (currentBaseState.fullPathHash == locoState) {
+				//カーブでコライダ調整をしている時は、念のためにリセットする
+				if (useCurves) {
+					resetCollider ();
+				}
+			}
+		// JUMP中の処理
+		// 現在のベースレイヤーがjumpStateの時
+		else if (currentBaseState.fullPathHash == jumpState) {
+				cameraObject.SendMessage ("setCameraPositionJumpView");	// ジャンプ中のカメラに変更
+				// ステートがトランジション中でない場合
+				if (!anim.IsInTransition (0)) {
 				
-			//			// 以下、カーブ調整をする場合の処理
-			//			if (useCurves) {
-			//				// 以下JUMP00アニメーションについているカーブJumpHeightとGravityControl
-			//				// JumpHeight:JUMP00でのジャンプの高さ（0〜1）
-			//				// GravityControl:1⇒ジャンプ中（重力無効）、0⇒重力有効
-			//				float jumpHeight = anim.GetFloat ("JumpHeight");
-			//				float gravityControl = anim.GetFloat ("GravityControl"); 
-			//				if (gravityControl > 0)
-			//					rb.useGravity = false;	//ジャンプ中の重力の影響を切る
+					// 以下、カーブ調整をする場合の処理
+					if (useCurves) {
+						// 以下JUMP00アニメーションについているカーブJumpHeightとGravityControl
+						// JumpHeight:JUMP00でのジャンプの高さ（0〜1）
+						// GravityControl:1⇒ジャンプ中（重力無効）、0⇒重力有効
+						float jumpHeight = anim.GetFloat ("JumpHeight");
+						float gravityControl = anim.GetFloat ("GravityControl"); 
+						if (gravityControl > 0)
+							rb.useGravity = false;	//ジャンプ中の重力の影響を切る
 										
-			//				// レイキャストをキャラクターのセンターから落とす
-			//				Ray ray = new Ray (transform.position + Vector3.up, -Vector3.up);
-			//				RaycastHit hitInfo = new RaycastHit ();
-			//				// 高さが useCurvesHeight 以上ある時のみ、コライダーの高さと中心をJUMP00アニメーションについているカーブで調整する
-			//				if (Physics.Raycast (ray, out hitInfo)) {
-			//					if (hitInfo.distance > useCurvesHeight) {
-			//						col.height = orgColHight - jumpHeight;			// 調整されたコライダーの高さ
-			//						float adjCenterY = orgVectColCenter.y + jumpHeight;
-			//						col.center = new Vector3 (0, adjCenterY, 0);	// 調整されたコライダーのセンター
-			//					} else {
-			//						// 閾値よりも低い時には初期値に戻す（念のため）					
-			//						resetCollider ();
-			//					}
-			//				}
-			//			}
-			//			// Jump bool値をリセットする（ループしないようにする）				
-			//			anim.SetBool ("Jump", false);
-			//		}
-			//	}
-			// IDLE中の処理
-			// 現在のベースレイヤーがidleStateの時
-			//else if (currentBaseState.fullPathHash == idleState) {
-			//		//カーブでコライダ調整をしている時は、念のためにリセットする
-			//		if (useCurves) {
-			//			resetCollider ();
-			//		}
-			//		// スペースキーを入力したらRest状態になる
-			//		if (Input.GetButtonDown ("Jump")) {
-			//			anim.SetBool ("Rest", true);
-			//		}
-			//	}
-			//// REST中の処理
-			//// 現在のベースレイヤーがrestStateの時
-			//else if (currentBaseState.fullPathHash == restState) {
-			//		//cameraObject.SendMessage("setCameraPositionFrontView");		// カメラを正面に切り替える
-			//		// ステートが遷移中でない場合、Rest bool値をリセットする（ループしないようにする）
-			//		if (!anim.IsInTransition (0)) {
-			//			anim.SetBool ("Rest", false);
-			//		}
-			//	}
+						// レイキャストをキャラクターのセンターから落とす
+						Ray ray = new Ray (transform.position + Vector3.up, -Vector3.up);
+						RaycastHit hitInfo = new RaycastHit ();
+						// 高さが useCurvesHeight 以上ある時のみ、コライダーの高さと中心をJUMP00アニメーションについているカーブで調整する
+						if (Physics.Raycast (ray, out hitInfo)) {
+							if (hitInfo.distance > useCurvesHeight) {
+								col.height = orgColHight - jumpHeight;			// 調整されたコライダーの高さ
+								float adjCenterY = orgVectColCenter.y + jumpHeight;
+								col.center = new Vector3 (0, adjCenterY, 0);	// 調整されたコライダーのセンター
+							} else {
+								// 閾値よりも低い時には初期値に戻す（念のため）					
+								resetCollider ();
+							}
+						}
+					}
+					// Jump bool値をリセットする（ループしないようにする）				
+					anim.SetBool ("Jump", false);
+				}
+			}
+		// IDLE中の処理
+		// 現在のベースレイヤーがidleStateの時
+		else if (currentBaseState.fullPathHash == idleState) {
+				//カーブでコライダ調整をしている時は、念のためにリセットする
+				if (useCurves) {
+					resetCollider ();
+				}
+				// スペースキーを入力したらRest状態になる
+				if (Input.GetButtonDown ("Jump")) {
+					anim.SetBool ("Rest", true);
+				}
+			}
+		// REST中の処理
+		// 現在のベースレイヤーがrestStateの時
+		else if (currentBaseState.fullPathHash == restState) {
+				//cameraObject.SendMessage("setCameraPositionFrontView");		// カメラを正面に切り替える
+				// ステートが遷移中でない場合、Rest bool値をリセットする（ループしないようにする）
+				if (!anim.IsInTransition (0)) {
+					anim.SetBool ("Rest", false);
+				}
+			}
 		}
 
 		//void OnGUI ()
@@ -213,7 +199,7 @@ namespace UnityChan
 
 
 		// キャラクターのコライダーサイズのリセット関数
-		void resetCollider()
+		void resetCollider ()
 		{
 			// コンポーネントのHeight、Centerの初期値を戻す
 			col.height = orgColHight;

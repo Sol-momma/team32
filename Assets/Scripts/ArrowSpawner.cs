@@ -26,7 +26,7 @@ public class ArrowSpawner : MonoBehaviour
             arrow.transform.rotation = Quaternion.LookRotation(world_direction);
             // rotate 90 degrees around the x axis
             arrow.transform.Rotate(0, 90, 0);
-            arrow.GetComponent<ArrowController>().Shoot(world_direction.normalized * 60000f);
+            arrow.GetComponent<ArrowController>().Shoot(world_direction.normalized * 50000f);
             //canShoot = false;
             //StartCoroutine(enableShooting());
             shootArrow.pitch = Random.Range(0.8f, 1.2f);
