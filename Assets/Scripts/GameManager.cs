@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,12 +12,16 @@ public class GameManager : MonoBehaviour
     public TimerRank timerRank; // TimerRankへの参照を追加
     // Start is called before the first frame update
 
-    [SerializeField] private GameObject text;
+    private bool isClicked = true;
+    private bool isStage2 = true;
+    private bool isStage3 = true;
+    [SerializeField] private GameObject[] text;
     [SerializeField] private GameObject[] ballSpawner;
     [SerializeField] private GameObject arrowSpawner;
 
     public static int hitBallCount = 0;
-    public static int stageNumber = 1;
+    public static int stageNumber = 0;
+    public int ballNum = 21;
 
     private void Start()
     {
@@ -32,15 +34,19 @@ public class GameManager : MonoBehaviour
 
     void OnScreenClick()
     {
-        text.SetActive(false);
         arrowSpawner.SetActive(true);
-        ballSpawner[0].SetActive(true);
+
+        Destroy(text[stageNumber]);
+        ballSpawner[stageNumber].SetActive(true);
+        isClicked = false;
+
         timerRank.StartTimer(); // タイマーを開始
+  
     }
 
     void Update()
     {
-        if (Input.mousePresent)
+        if (Input.mousePresent && isClicked)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -48,7 +54,39 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (hitBallCount >= ballNum * 2 && isStage3)
+        {
+            arrowSpawner.SetActive(false);
+            isClicked = true;
+            Stage3();
+        }
+        else if (hitBallCount >= ballNum && isStage2)
+        {
+            arrowSpawner.SetActive(false);
+            isClicked = true;
+            Stage2();
+        }
+
         scoreText.text = score + "";
+    }
+
+    private void Stage3()
+    {
+        stageNumber = 2;
+        ClearScreen();
+        ballSpawner[1].SetActive(false);
+        arrowSpawner.SetActive(false);
+        text[2].SetActive(true);
+        isStage3 = false;
+    }
+
+    private void Stage2()
+    {
+        stageNumber = 1;
+        ballSpawner[0].SetActive(false);
+        arrowSpawner.SetActive(false);
+        text[1].SetActive(true);
+        isStage2 = false;
     }
 
     public int GetScore()
@@ -60,6 +98,17 @@ public class GameManager : MonoBehaviour
     {
         score += value;
     }
+
+
+    public void BallHit()
+    {
+        hitBallCount++;
+    }
+
+    private void ClearScreen()
+    {
+        Debug.Log("Clear");
+    }
     public void DestroyAllBalls() // すべてのボールを消去する新しいメソッド
     {
         GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
@@ -67,5 +116,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(ball);
         }
+
     }
 }

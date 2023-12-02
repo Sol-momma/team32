@@ -50,10 +50,11 @@ public class ArrowController : MonoBehaviour
             collisionAudioSourceController.DestroyAfterPlay();
             Destroy(gameObject);
             Destroy(other.gameObject);
-            // GameManagerの衝突回数をインクリメント
+
+            gameManager.BallHit();
             gameManager.collisionCount++;
             // 衝突回数の定義
-            int collisionMax = 21;
+            int collisionMax = 42;
             // 衝突回数が21になったらタイマーを停止
             if (gameManager.collisionCount == collisionMax)
             {
@@ -66,6 +67,7 @@ public class ArrowController : MonoBehaviour
                 // 遅延後にシーン遷移を行うメソッドを呼び出す
                 stm.TransitionToScene("ScoreResult");
             }
+
         }
     }
 }
