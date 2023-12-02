@@ -33,16 +33,19 @@ public class PlayFabLeaderboardViewer : MonoBehaviour
             foreach (var item in result.Leaderboard)
             {
                 string displayName = item.DisplayName ?? "NoName";
-                // スコアを-1倍して元に戻す
-                float correctedScore = (float)item.StatValue * -1 /100 ;
+                // スコアを-1倍して元に戻し、100で割る
+                float correctedScore = (float)item.StatValue * -1 / 100;
 
                 // スコアを時、分、秒に分割
                 int hours = (int)correctedScore / 60;
                 int minutes = (int)correctedScore % 60;
                 float seconds = correctedScore % 1f;
 
+                // ミリ秒を計算（秒の小数部分を100倍し、整数に変換）
+                int milliseconds = Mathf.RoundToInt(seconds * 100);
+
                 string hoursText = hours > 0 ? $"{hours}分" : "";
-                nameRecordText.text += $"{item.Position + 1}位: {displayName} スコア {hoursText}{minutes:D2}秒{seconds}\n";
+                nameRecordText.text += $"{item.Position + 1}位: {displayName} スコア {hoursText}{minutes:D2}秒{milliseconds:D2}\n";
             }
         }, error =>
         {
