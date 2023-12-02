@@ -1580,15 +1580,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 360108802}
+  text:
+  - {fileID: 2141762954}
+  - {fileID: 1769634812}
+  - {fileID: 1025528226}
   collisionCount: 0
   isGameActive: 1
   timerRank: {fileID: 608752087}
-  text: {fileID: 2141762954}
   ballSpawner:
   - {fileID: 2144557108}
   - {fileID: 653956513}
   - {fileID: 114060228}
   arrowSpawner: {fileID: 689554421}
+  ballNum: 21
 --- !u!4 &714007529
 Transform:
   m_ObjectHideFlags: 0
