@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     private void Stage3()
     {
         stageNumber = 2;
-        ClearScreen();
+        DestroyAllBalls();
         ballSpawner[1].SetActive(false);
         arrowSpawner.SetActive(false);
         text[2].SetActive(true);
@@ -105,10 +105,6 @@ public class GameManager : MonoBehaviour
         hitBallCount++;
     }
 
-    private void ClearScreen()
-    {
-        Debug.Log("Clear");
-    }
     public void DestroyAllBalls() // すべてのボールを消去する新しいメソッド
     {
         GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
