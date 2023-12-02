@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
   
     }
 
+
+
     void Update()
     {
         if (Input.mousePresent && isClicked)
@@ -57,13 +59,13 @@ public class GameManager : MonoBehaviour
         if (hitBallCount >= ballNum * 2 && isStage3)
         {
             arrowSpawner.SetActive(false);
-            isClicked = true;
+            StartCoroutine(NextStage());
             Stage3();
         }
         else if (hitBallCount >= ballNum && isStage2)
         {
             arrowSpawner.SetActive(false);
-            isClicked = true;
+            StartCoroutine(NextStage());
             Stage2();
         }
 
@@ -113,5 +115,15 @@ public class GameManager : MonoBehaviour
             Destroy(ball);
         }
 
+    }
+
+    IEnumerator NextStage()
+    {
+        yield return new WaitForSeconds(1f);
+        arrowSpawner.SetActive(true);
+
+        Destroy(text[stageNumber]);
+        ballSpawner[stageNumber].SetActive(true);
+        isClicked = false;
     }
 }
