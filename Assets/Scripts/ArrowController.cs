@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ArrowController : MonoBehaviour
 {
@@ -49,7 +50,24 @@ public class ArrowController : MonoBehaviour
             collisionAudioSourceController.DestroyAfterPlay();
             Destroy(gameObject);
             Destroy(other.gameObject);
+
             gameManager.BallHit();
+            gameManager.collisionCount++;
+            // 衝突回数の定義
+            int collisionMax = 21;
+            // 衝突回数が21になったらタイマーを停止
+            if (gameManager.collisionCount == collisionMax)
+            {
+                TimerRank timerRank = GameObject.Find("TimerObject").GetComponent<TimerRank>(); // TimerObjectはタイマーがアタッチされているゲームオブジェクトの名前です
+                timerRank.StopTimer();
+                gameManager.isGameActive = false; // isGameActive変数をfalseにする
+                gameManager.DestroyAllBalls(); // すべてのボールを消去する
+                // SceneTransitionManagerを取得
+                SceneTransitionManager stm = FindObjectOfType<SceneTransitionManager>();
+                // 遅延後にシーン遷移を行うメソッドを呼び出す
+                stm.TransitionToScene("ScoreResult");
+            }
+
         }
     }
 }

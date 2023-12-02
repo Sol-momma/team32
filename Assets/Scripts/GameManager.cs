@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
 {
     private int score = 0;
     [SerializeField] private Text scoreText;
+    public int collisionCount = 0; // 衝突回数をカウントする変数を追加
+    public bool isGameActive = true; // isGameActiveをtrueに初期設定
+    public TimerRank timerRank; // TimerRankへの参照を追加
+    // Start is called before the first frame update
 
     private bool isClicked = true;
     private bool isStage2 = true;
@@ -31,9 +35,13 @@ public class GameManager : MonoBehaviour
     void OnScreenClick()
     {
         arrowSpawner.SetActive(true);
+
         Destroy(text[stageNumber]);
         ballSpawner[stageNumber].SetActive(true);
         isClicked = false;
+
+        timerRank.StartTimer(); // タイマーを開始
+  
     }
 
     void Update()
@@ -91,6 +99,7 @@ public class GameManager : MonoBehaviour
         score += value;
     }
 
+
     public void BallHit()
     {
         hitBallCount++;
@@ -99,5 +108,14 @@ public class GameManager : MonoBehaviour
     private void ClearScreen()
     {
         Debug.Log("Clear");
+    }
+    public void DestroyAllBalls() // すべてのボールを消去する新しいメソッド
+    {
+        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+        foreach (GameObject ball in balls)
+        {
+            Destroy(ball);
+        }
+
     }
 }
