@@ -1,10 +1,11 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 using PlayFab.ClientModels;
 using PlayFab;
-
 public class PlayFabLogin : MonoBehaviour
 {
+    public Text nameRecordText; // 追加: ランキングデータを表示するTextへの参照
+
     private void OnEnable()
     {
         PlayFabAuthService.OnLoginSuccess += PlayFabAuthService_OnLoginSuccess;
@@ -20,37 +21,20 @@ public class PlayFabLogin : MonoBehaviour
     private void PlayFabAuthService_OnLoginSuccess(LoginResult success)
     {
         Debug.Log("ログイン成功");
-        //SubmitScore(123);
         GetLeaderboard();
     }
+
     private void PlayFabAuthService_OnPlayFabError(PlayFabError error)
     {
-        Debug.Log("ログイン失敗");
+        Debug.Log("ログイン失敗: " + error.GenerateErrorReport());
     }
+
     void Start()
     {
+        // ここでログイン処理を実行する
         PlayFabAuthService.Instance.Authenticate(Authtypes.Silent);
     }
-    public void SubmitScore(int playerScore)
-    {
-        PlayFabClientAPI.UpdatePlayerStatistics(new UpdatePlayerStatisticsRequest
-        {
-            Statistics = new List<StatisticUpdate>
-            {
-                new StatisticUpdate
-                {
-                    StatisticName = "SpeedScore",
-                    Value = playerScore
-                }
-            }
-        }, result =>
-        {
-            Debug.Log($"スコア {playerScore} 送信完了！");
-        }, error =>
-        {
-            Debug.Log(error.GenerateErrorReport());
-        });
-    }
+
 
     public void GetLeaderboard()
     {
@@ -59,14 +43,11 @@ public class PlayFabLogin : MonoBehaviour
             StatisticName = "SpeedScore"
         }, result =>
         {
+            nameRecordText.text = ""; // テキストを初期化
             foreach (var item in result.Leaderboard)
             {
-                string displayName = item.DisplayName;
-                if (displayName == null)
-                {
-                    displayName = "NoName";
-                }
-                Debug.Log($"{item.Position + 1}位:{displayName} " + $"スコア {item.StatValue}");
+                string displayName = item.DisplayName ?? "NoName";
+                nameRecordText.text += $"{item.Position + 1}位: {displayName} スコア {item.StatValue}\n";
             }
         }, error =>
         {
