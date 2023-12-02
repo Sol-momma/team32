@@ -6,9 +6,10 @@ public class BallController : MonoBehaviour
 {
     private float speed;
     private Vector3 goalPosition = new(0, 30, 1000);
+
     void Start()
     {
-        if (GameManager.stageNumber == 2)
+        if (GameManager.stageNumber != 0)
         {
             speed = Random.Range(100, 200);
         }
@@ -18,12 +19,12 @@ public class BallController : MonoBehaviour
     {
         switch (GameManager.stageNumber)
         {
-            case 1:
+            case 0:
                 break;
-            case 2:
+            case 1:
                 Stage2();
                 break;
-            case 3:
+            case 2:
                 break;
             default:
                 break;

@@ -49,6 +49,7 @@ public class ArrowController : MonoBehaviour
             collisionAudioSourceController.DestroyAfterPlay();
             Destroy(gameObject);
             Destroy(other.gameObject);
+            gameManager.BallHit();
         }
     }
 }

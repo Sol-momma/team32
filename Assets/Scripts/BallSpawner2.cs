@@ -13,19 +13,13 @@ public class BallSpawner2 : MonoBehaviour
 
     private IEnumerator SpawnBall()
     {
-        while (true)
+        while (GameManager.hitBallCount < 42)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             int sign_x = Random.Range(0, 2) * 2 - 1;
             float random_x = sign_x * Random.Range(50f, 150f);
             float y = Random.Range(30f, 90f);
             Instantiate(ballPrefab, new Vector3(random_x, y, -100), Quaternion.identity);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
