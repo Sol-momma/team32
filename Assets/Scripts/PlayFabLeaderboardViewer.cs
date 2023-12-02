@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using PlayFab.ClientModels;
 using PlayFab;
+using System;
 
 public class PlayFabLeaderboardViewer : MonoBehaviour
 {
@@ -33,15 +34,15 @@ public class PlayFabLeaderboardViewer : MonoBehaviour
             {
                 string displayName = item.DisplayName ?? "NoName";
                 // スコアを-1倍して元に戻す
-                int correctedScore = item.StatValue * -1;
+                float correctedScore = (float)item.StatValue * -1 /100 ;
 
                 // スコアを時、分、秒に分割
-                int hours = correctedScore / 3600;
-                int minutes = (correctedScore % 3600) / 60;
-                int seconds = correctedScore % 60;
+                int hours = (int)correctedScore / 60;
+                int minutes = (int)correctedScore % 60;
+                float seconds = correctedScore % 1f;
 
                 string hoursText = hours > 0 ? $"{hours}分" : "";
-                nameRecordText.text += $"{item.Position + 1}位: {displayName} スコア {hoursText}{minutes:D2}秒{seconds:D2}\n";
+                nameRecordText.text += $"{item.Position + 1}位: {displayName} スコア {hoursText}{minutes:D2}秒{seconds}\n";
             }
         }, error =>
         {

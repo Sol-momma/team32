@@ -15,8 +15,10 @@ public class PlayFabScoreSubmitter : MonoBehaviour
             Debug.LogError("ユーザーはログインしていません。");
             return;
         }
+
         ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreenを検索
         float score = resultScreen.GetScore(); // ResultScreenからスコアを取得
+        Debug.Log(score);
 
         // スコアを100倍にして整数に変換し、さらに-1を掛ける
         int scaledScore = Mathf.RoundToInt(score * 100) * -1;
@@ -31,9 +33,12 @@ public class PlayFabScoreSubmitter : MonoBehaviour
                 Value = scaledScore // 負のスケーリングされたスコアを使用
             }
         }
-    };
+        };
 
-        private void OnStatisticsUpdate(UpdatePlayerStatisticsResult result)
+        PlayFabClientAPI.UpdatePlayerStatistics(request, OnStatisticsUpdate, OnPlayFabError);
+    }
+
+    private void OnStatisticsUpdate(UpdatePlayerStatisticsResult result)
     {
         Debug.Log("スコア登録成功");
         SetDisplayName(); // 名前を設定
