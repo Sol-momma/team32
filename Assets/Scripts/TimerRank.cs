@@ -11,6 +11,7 @@ public class TimerRank : MonoBehaviour
     public float timer;
     private bool timeStop;
     public bool startTimer; // タイマーを開始するためのフラグ
+    public Text resultText; // 結果を表示するためのTextオブジェクトをInspectorからアタッチ
 
     void Awake()
     {
@@ -22,10 +23,7 @@ public class TimerRank : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            return;
         }
-        timer = 0;
-        startTimer = false; // 初期状態ではタイマーは開始しない
     }
 
 

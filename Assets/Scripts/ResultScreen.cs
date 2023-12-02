@@ -7,7 +7,7 @@ public class ResultScreen : MonoBehaviour
 
     void Start()
     {
-         // TimerObjectオブジェクトを見つけてタイマーの値を取得
+        // TimerObjectオブジェクトを見つけてタイマーの値を取得
         TimerRank timerRank = GameObject.Find("TimerObject").GetComponent<TimerRank>();
         resultText.text = "Time: " + timerRank.GetTime().ToString("f2");
     }
