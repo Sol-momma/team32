@@ -122,6 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionParticleSystemPrefab: {fileID: 8541841996816507970, guid: 7208de6b7b9d74b4ba3e9f83e526d698, type: 3}
   collisionSoundPrefab: {fileID: 6433916858533772097, guid: c7c9d8cec597f144f9a8755422f31cc6, type: 3}
+  clearVoice: {fileID: 8300000, guid: 6360026bf8025374796b87aaf54e590e, type: 3}
 --- !u!54 &1883257230211126603
 Rigidbody:
   m_ObjectHideFlags: 0
