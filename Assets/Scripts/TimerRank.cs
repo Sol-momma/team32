@@ -9,7 +9,7 @@ public class TimerRank : MonoBehaviour
     public static TimerRank Instance { get; private set; }
     [SerializeField] Text timerText;
     public float timer;
-    private bool timeStop;
+    private bool timeStop = true;
     public Text resultText; // 結果を表示するためのTextオブジェクトをInspectorからアタッチ
 
     void Awake()
