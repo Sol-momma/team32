@@ -70,3 +70,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# vscodeと、Projectファイルを無視
+.vscode/
+ProjectSettings/BurstAotSettings_StandaloneOSX.json
+ProjectSettings/CommonBurstAotSettings.json
+ProjectSettings/BurstAotSettings_WebGL.json
