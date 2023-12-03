@@ -55,11 +55,11 @@ public class ArrowController : MonoBehaviour
             gameManager.collisionCount++;
             // 衝突回数の定義
             int collisionMax = 63;
-            // 衝突回数が21になったらタイマーを停止
+            // 衝突回数がcollisionMaxになったらタイマーを停止
             if (gameManager.collisionCount == collisionMax)
             {
-                TimerRank timerRank = GameObject.Find("TimerObject").GetComponent<TimerRank>(); // TimerObjectはタイマーがアタッチされているゲームオブジェクトの名前です
-                timerRank.StopTimer();
+                // TimerRank timerRank = GameObject.Find("TimerObject").GetComponent<TimerRank>(); // TimerObjectはタイマーがアタッチされているゲームオブジェクトの名前です
+                TimerRank.Instance.StopTimer();
                 gameManager.isGameActive = false; // isGameActive変数をfalseにする
                 gameManager.DestroyAllBalls(); // すべてのボールを消去する
                 // SceneTransitionManagerを取得

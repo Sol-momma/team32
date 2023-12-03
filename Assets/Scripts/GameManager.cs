@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] ballSpawner;
     [SerializeField] private GameObject arrowSpawner;
 
-    public static int hitBallCount = 0;
-    public static int stageNumber = 0;
+    public int hitBallCount = 0;
+    public int stageNumber = 0;
     public int ballNum = 21;
 
     private void Start()
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         ballSpawner[stageNumber].SetActive(true);
         isClicked = false;
 
-        timerRank.StartTimer(); // タイマーを開始
+        TimerRank.Instance.StartTimer(); // タイマーを開始
   
     }
 

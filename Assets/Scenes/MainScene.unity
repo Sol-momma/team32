@@ -1124,6 +1124,7 @@ MonoBehaviour:
   timerText: {fileID: 1161648260}
   timer: 0
   startTimer: 0
+  resultText: {fileID: 0}
 --- !u!1 &623135722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,6 +1605,8 @@ MonoBehaviour:
   - {fileID: 653956513}
   - {fileID: 114060228}
   arrowSpawner: {fileID: 689554421}
+  hitBallCount: 0
+  stageNumber: 0
   ballNum: 21
 --- !u!4 &714007529
 Transform:
