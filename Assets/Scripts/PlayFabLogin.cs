@@ -5,8 +5,8 @@ using PlayFab;
 using System.Collections.Generic;
 public class PlayFabLogin : MonoBehaviour
 {
-    public Text nameRecordText; // Šù‘¶‚ÌƒtƒB[ƒ‹ƒh
-    public InputField nameInputField; // ƒ†[ƒU[–¼“ü—Í—p‚ÌInputField
+    public Text nameRecordText; // ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒtï¿½Bï¿½[ï¿½ï¿½ï¿½h
+    public InputField nameInputField; // ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Í—pï¿½ï¿½InputField
 
     private void OnEnable()
     {
@@ -22,18 +22,18 @@ public class PlayFabLogin : MonoBehaviour
 
     private void PlayFabAuthService_OnLoginSuccess(LoginResult success)
     {
-        Debug.Log("ƒƒOƒCƒ“¬Œ÷");
+        Debug.Log("ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         GetLeaderboard();
     }
 
     private void PlayFabAuthService_OnPlayFabError(PlayFabError error)
     {
-        Debug.Log("ƒƒOƒCƒ“¸”s: " + error.GenerateErrorReport());
+        Debug.Log("ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½s: " + error.GenerateErrorReport());
     }
 
     void Start()
     {
-        // ‚±‚±‚ÅƒƒOƒCƒ“ˆ—‚ğÀs‚·‚é
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Åƒï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½
         PlayFabAuthService.Instance.Authenticate(Authtypes.Silent);
     }
 
@@ -45,11 +45,11 @@ public class PlayFabLogin : MonoBehaviour
             StatisticName = "SpeedScore"
         }, result =>
         {
-            nameRecordText.text = ""; // ƒeƒLƒXƒg‚ğ‰Šú‰»
+            nameRecordText.text = ""; // ï¿½eï¿½Lï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             foreach (var item in result.Leaderboard)
             {
                 string displayName = item.DisplayName ?? "NoName";
-                nameRecordText.text += $"{item.Position + 1}ˆÊ: {displayName} ƒXƒRƒA {item.StatValue}\n";
+                nameRecordText.text += $"{item.Position + 1}ï¿½ï¿½: {displayName} ï¿½Xï¿½Rï¿½A {item.StatValue}\n";
             }
         }, error =>
         {
@@ -58,8 +58,8 @@ public class PlayFabLogin : MonoBehaviour
     }
     public void SubmitScoreWithName()
     {
-        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreen‚ğŒŸõ
-        float score = resultScreen.GetScore(); // ResultScreen‚©‚çƒXƒRƒA‚ğæ“¾
+        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreenï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        float score = resultScreen.GetScore(); // ResultScreenï¿½ï¿½ï¿½ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½æ“¾
 
         var request = new UpdatePlayerStatisticsRequest
         {
@@ -68,7 +68,7 @@ public class PlayFabLogin : MonoBehaviour
                 new StatisticUpdate
                 {
                     StatisticName = "SpeedScore",
-                    Value = (int)score // ƒXƒRƒA‚ğ®”‚É•ÏŠ·‚µ‚Äg—p
+                    Value = (int)score // ï¿½Xï¿½Rï¿½Aï¿½ğ®ï¿½ï¿½É•ÏŠï¿½ï¿½ï¿½ï¿½Ägï¿½p
                 }
             }
         };
@@ -78,8 +78,8 @@ public class PlayFabLogin : MonoBehaviour
 
     private void OnStatisticsUpdate(UpdatePlayerStatisticsResult result)
     {
-        Debug.Log("ƒXƒRƒA“o˜^¬Œ÷");
-        SetDisplayName(); // –¼‘O‚ğİ’è
+        Debug.Log("ï¿½Xï¿½Rï¿½Aï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½");
+        SetDisplayName(); // ï¿½ï¿½ï¿½Oï¿½ï¿½İ’ï¿½
     }
 
     private void SetDisplayName()
@@ -94,11 +94,11 @@ public class PlayFabLogin : MonoBehaviour
 
     private void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
     {
-        Debug.Log("•\¦–¼‚ğXV‚µ‚Ü‚µ‚½");
-        GetLeaderboard(); // ƒŠ[ƒ_[ƒ{[ƒh‚ğXV
+        // Debug.Log("ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
+        GetLeaderboard(); // ï¿½ï¿½ï¿½[ï¿½_ï¿½[ï¿½{ï¿½[ï¿½hï¿½ï¿½ï¿½Xï¿½V
     }
-    private void OnPlayFabError(PlayFabError error) // ‚±‚Ìƒƒ\ƒbƒh‚ğ’Ç‰Á
+    private void OnPlayFabError(PlayFabError error) // ï¿½ï¿½ï¿½Ìƒï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½Ç‰ï¿½
     {
-        Debug.Log("PlayFabƒGƒ‰[: " + error.GenerateErrorReport());
+        Debug.Log("PlayFabï¿½Gï¿½ï¿½ï¿½[: " + error.GenerateErrorReport());
     }
 }

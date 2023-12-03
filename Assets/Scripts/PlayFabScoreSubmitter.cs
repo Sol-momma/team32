@@ -6,21 +6,21 @@ using System.Collections.Generic;
 
 public class PlayFabScoreSubmitter : MonoBehaviour
 {
-    public InputField nameInputField; // ƒ†[ƒU[–¼“ü—Í—p‚ÌInputField
+    public InputField nameInputField; // ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Í—pï¿½ï¿½InputField
 
     public void SubmitScoreWithName()
     {
         if (!GlobalLoginState.IsLoggedIn)
         {
-            Debug.LogError("ƒ†[ƒU[‚ÍƒƒOƒCƒ“‚µ‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogError("ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½Íƒï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B");
             return;
         }
 
-        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreen‚ğŒŸõ
-        float score = resultScreen.GetScore(); // ResultScreen‚©‚çƒXƒRƒA‚ğæ“¾
+        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreenï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        float score = resultScreen.GetScore(); // ResultScreenï¿½ï¿½ï¿½ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½æ“¾
         Debug.Log(score);
 
-        // ƒXƒRƒA‚ğ100”{‚É‚µ‚Ä®”‚É•ÏŠ·‚µA‚³‚ç‚É-1‚ğŠ|‚¯‚é
+        // ï¿½Xï¿½Rï¿½Aï¿½ï¿½100ï¿½{ï¿½É‚ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½É•ÏŠï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½-1ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½
         int scaledScore = Mathf.RoundToInt(score * 100) * -1;
 
         var request = new UpdatePlayerStatisticsRequest
@@ -30,7 +30,7 @@ public class PlayFabScoreSubmitter : MonoBehaviour
             new StatisticUpdate
             {
                 StatisticName = "SpeedScore",
-                Value = scaledScore // •‰‚ÌƒXƒP[ƒŠƒ“ƒO‚³‚ê‚½ƒXƒRƒA‚ğg—p
+                Value = scaledScore // ï¿½ï¿½ï¿½ÌƒXï¿½Pï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ê‚½ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½gï¿½p
             }
         }
         };
@@ -40,8 +40,8 @@ public class PlayFabScoreSubmitter : MonoBehaviour
 
     private void OnStatisticsUpdate(UpdatePlayerStatisticsResult result)
     {
-        Debug.Log("ƒXƒRƒA“o˜^¬Œ÷");
-        SetDisplayName(); // –¼‘O‚ğİ’è
+        Debug.Log("ï¿½Xï¿½Rï¿½Aï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½");
+        SetDisplayName(); // ï¿½ï¿½ï¿½Oï¿½ï¿½İ’ï¿½
     }
 
     private void SetDisplayName()
@@ -56,11 +56,11 @@ public class PlayFabScoreSubmitter : MonoBehaviour
 
     private void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
     {
-        Debug.Log("•\¦–¼‚ğXV‚µ‚Ü‚µ‚½");
+        // Debug.Log("ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
     }
 
     private void OnPlayFabError(PlayFabError error)
     {
-        Debug.Log("PlayFabƒGƒ‰[: " + error.GenerateErrorReport());
+        Debug.Log("PlayFabï¿½Gï¿½ï¿½ï¿½[: " + error.GenerateErrorReport());
     }
 }
