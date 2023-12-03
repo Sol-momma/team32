@@ -291,6 +291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 338287511}
   - component: {fileID: 338287512}
+  - component: {fileID: 338287513}
   m_Layer: 0
   m_Name: ResultScreen
   m_TagString: Untagged
@@ -326,6 +327,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultText: {fileID: 1161412971}
+--- !u!114 &338287513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338287510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2806065b466491f8c0110ba795c67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &440262038
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +352,7 @@ GameObject:
   - component: {fileID: 440262040}
   - component: {fileID: 440262039}
   - component: {fileID: 440262043}
+  - component: {fileID: 440262044}
   m_Layer: 5
   m_Name: RETRYButton
   m_TagString: Untagged
@@ -389,7 +403,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 440262040}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 440262044}
+        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
+        m_MethodName: change_button
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &440262040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +487,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 3.0895984
+--- !u!114 &440262044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440262038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2806065b466491f8c0110ba795c67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &491156463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,7 +1449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1658850832
 Transform:
   m_ObjectHideFlags: 0
@@ -1439,7 +1477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e925d8218bb4427e8d1388bae86bf47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText: {fileID: 0}
+  timerText: {fileID: 1161412971}
   timer: 0
   startTimer: 0
 --- !u!1 &1698614258

@@ -9,12 +9,13 @@ public class BallSpawner2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         StartCoroutine(SpawnBall(5));
     }
 
     private IEnumerator SpawnBall(int numberOfBalls)
     {
-        while (GameManager.hitBallCount < 42)
+        while (gameManager.hitBallCount < 42)
         {
             yield return new WaitForSeconds(1f);
 
