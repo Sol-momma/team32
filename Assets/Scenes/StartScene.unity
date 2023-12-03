@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 255829846}
   - component: {fileID: 255829848}
   - component: {fileID: 255829847}
+  - component: {fileID: 255829849}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -327,7 +328,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00044727, y: 0.16752}
-  m_SizeDelta: {x: 734, y: 327.66}
+  m_SizeDelta: {x: 1100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &255829847
 MonoBehaviour:
@@ -349,7 +350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c9ce45403f42b7478256790067e7132, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1b353bbe9366a49719bb9dc309f04688, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -367,6 +368,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255829845}
   m_CullTransparentMesh: 1
+--- !u!114 &255829849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255829845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 2.2401268
 --- !u!1 &325158732
 GameObject:
   m_ObjectHideFlags: 0
