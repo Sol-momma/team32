@@ -11,15 +11,17 @@ public class BallController : MonoBehaviour
     private Vector3 moveDirection;
     private float changeDirectionInterval = 2f;
     private float timer = 0f;
+    private GameManager gameManager;
 
     void Start()
     {
-        if (GameManager.stageNumber == 1)
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (gameManager.stageNumber == 1)
         {
             speed = Random.Range(100, 180);
         }
 
-        if (GameManager.stageNumber == 2)
+        if (gameManager.stageNumber == 2)
         {
             speed = Random.Range(50, 100);
             ChangeDirection();
@@ -28,7 +30,7 @@ public class BallController : MonoBehaviour
 
     void Update()
     {
-        switch (GameManager.stageNumber)
+        switch (gameManager.stageNumber)
         {
             case 0:
                 break;

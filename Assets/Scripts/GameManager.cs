@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] ballSpawner;
     [SerializeField] private GameObject arrowSpawner;
 
-    public static int hitBallCount = 0;
-    public static int stageNumber = 0;
+    public int hitBallCount = 0;
+    public int stageNumber = 0;
     public int ballNum = 21;
 
     private void Start()
@@ -40,9 +40,11 @@ public class GameManager : MonoBehaviour
         ballSpawner[stageNumber].SetActive(true);
         isClicked = false;
 
-        timerRank.StartTimer(); // タイマーを開始
+        TimerRank.Instance.StartTimer(); // タイマーを開始
   
     }
+
+
 
     void Update()
     {
@@ -57,13 +59,13 @@ public class GameManager : MonoBehaviour
         if (hitBallCount >= ballNum * 2 && isStage3)
         {
             arrowSpawner.SetActive(false);
-            isClicked = true;
+            StartCoroutine(NextStage());
             Stage3();
         }
         else if (hitBallCount >= ballNum && isStage2)
         {
             arrowSpawner.SetActive(false);
-            isClicked = true;
+            StartCoroutine(NextStage());
             Stage2();
         }
 
@@ -113,5 +115,15 @@ public class GameManager : MonoBehaviour
             Destroy(ball);
         }
 
+    }
+
+    IEnumerator NextStage()
+    {
+        yield return new WaitForSeconds(1f);
+        arrowSpawner.SetActive(true);
+
+        Destroy(text[stageNumber]);
+        ballSpawner[stageNumber].SetActive(true);
+        isClicked = false;
     }
 }

@@ -5,58 +5,63 @@ using PlayFab;
 using System.Collections.Generic;
 public class PlayFabScoreSubmitter : MonoBehaviour
 {
-    public InputField nameInputField; // ƒ†[ƒU[–¼“ü—Í—p‚ÌInputField
-    public Text errorMessageText;     // ƒGƒ‰[ƒƒbƒZ[ƒW•\¦—p‚ÌText
-    public SceneChanger sceneChanger; // SceneChanger‚Ö‚ÌQÆ
+
+    public InputField nameInputField; 
+    public Text errorMessageText;     
+    public SceneChanger sceneChanger; 
+
 
 
     void Start()
     {
-        // ‰Šú‰»‚ÉƒGƒ‰[ƒƒbƒZ[ƒW‚ğ”ñ•\¦‚Éİ’è
+       
         errorMessageText.text = "";
-        errorMessageText.gameObject.SetActive(false); // •K—v‚É‰‚¶‚Ä
+        errorMessageText.gameObject.SetActive(false); 
     }
     public void SubmitScoreWithName()
     {
         if (!GlobalLoginState.IsLoggedIn)
         {
-            Debug.LogError("ƒ†[ƒU[‚ÍƒƒOƒCƒ“‚µ‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogError("ãƒ¦ãƒ¼ã‚¶ãƒ¼ã¯ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã„ã¾ã›ã‚“ã€‚");
             return;
         }
+
 
         if (nameInputField.text.Length > 6)
         {
-            errorMessageText.text = "ƒ†[ƒU[–¼‚Í6•¶š‚Ü‚Å‚È‚Ì‚¾";
-            errorMessageText.gameObject.SetActive(true); // ƒGƒ‰[ƒƒbƒZ[ƒW‚ğ•\¦
+            errorMessageText.text = "ãƒ¦ãƒ¼ã‚¶ãƒ¼åã¯6æ–‡å­—ã¾ã§ãªã®ã ";
+            errorMessageText.gameObject.SetActive(true); 
             return;
         }
 
-        // ƒGƒ‰[‚ª‚È‚¢ê‡‚ÍƒGƒ‰[ƒƒbƒZ[ƒW‚ğ”ñ•\¦‚É
-        errorMessageText.gameObject.SetActive(false);
 
-        ResultScreen resultScreen = FindObjectOfType<ResultScreen>();
-        float score = resultScreen.GetScore();
+        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreenã‚’æ¤œç´¢
+        float score = resultScreen.GetScore(); // ResultScreenã‹ã‚‰ã‚¹ã‚³ã‚¢ã‚’å–å¾—
         Debug.Log(score);
 
+        // ã‚¹ã‚³ã‚¢ã‚’100å€ã«ã—ã¦æ•´æ•°ã«å¤‰æ›ã—ã€ã•ã‚‰ã«-1ã‚’æ›ã‘ã‚‹
         int scaledScore = Mathf.RoundToInt(score * 100) * -1;
 
         var request = new UpdatePlayerStatisticsRequest
         {
             Statistics = new List<StatisticUpdate>
             {
+
                 new StatisticUpdate
                 {
                     StatisticName = "SpeedScore",
                     Value = scaledScore
                 }
+
             }
         };
 
         PlayFabClientAPI.UpdatePlayerStatistics(request, result =>
         {
-            Debug.Log("ƒXƒRƒA“o˜^¬Œ÷");
+            Debug.Log("ã‚¹ã‚³ã‚¢ç™»éŒ²æˆåŠŸ"));
             SetDisplayName();
         }, OnPlayFabError);
+
     }
 
     private void SetDisplayName()
@@ -68,13 +73,14 @@ public class PlayFabScoreSubmitter : MonoBehaviour
 
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, result =>
         {
-            Debug.Log("•\¦–¼‚ğXV‚µ‚Ü‚µ‚½");
-            sceneChanger.ChangeSceneToRanking(); // ‚±‚±‚ÅƒV[ƒ“‘JˆÚ‚ğƒgƒŠƒK[
+            Debug.Log(("è¡¨ç¤ºåã‚’æ›´æ–°ã—ã¾ã—ãŸ");
+            sceneChanger.ChangeSceneToRanking(); 
         }, OnPlayFabError);
+
     }
 
     private void OnPlayFabError(PlayFabError error)
     {
-        Debug.LogError("PlayFabƒGƒ‰[: " + error.GenerateErrorReport());
+        Debug.LogError("PlayFabã‚¨ãƒ©ãƒ¼: " + error.GenerateErrorReport());
     }
 }
