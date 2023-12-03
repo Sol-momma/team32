@@ -3,11 +3,21 @@ using UnityEngine.UI;
 using PlayFab.ClientModels;
 using PlayFab;
 using System.Collections.Generic;
-
 public class PlayFabScoreSubmitter : MonoBehaviour
 {
-    public InputField nameInputField; // ユーザー名入力用のInputField
 
+    public InputField nameInputField; 
+    public Text errorMessageText;     
+    public SceneChanger sceneChanger; 
+
+
+
+    void Start()
+    {
+       
+        errorMessageText.text = "";
+        errorMessageText.gameObject.SetActive(false); 
+    }
     public void SubmitScoreWithName()
     {
         if (!GlobalLoginState.IsLoggedIn)
@@ -15,6 +25,15 @@ public class PlayFabScoreSubmitter : MonoBehaviour
             Debug.LogError("ユーザーはログインしていません。");
             return;
         }
+
+
+        if (nameInputField.text.Length > 6)
+        {
+            errorMessageText.text = "ユーザー名は6文字までなのだ";
+            errorMessageText.gameObject.SetActive(true); 
+            return;
+        }
+
 
         ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreenを検索
         float score = resultScreen.GetScore(); // ResultScreenからスコアを取得
@@ -26,22 +45,23 @@ public class PlayFabScoreSubmitter : MonoBehaviour
         var request = new UpdatePlayerStatisticsRequest
         {
             Statistics = new List<StatisticUpdate>
-        {
-            new StatisticUpdate
             {
-                StatisticName = "SpeedScore",
-                Value = scaledScore // 負のスケーリングされたスコアを使用
+
+                new StatisticUpdate
+                {
+                    StatisticName = "SpeedScore",
+                    Value = scaledScore
+                }
+
             }
-        }
         };
 
-        PlayFabClientAPI.UpdatePlayerStatistics(request, OnStatisticsUpdate, OnPlayFabError);
-    }
+        PlayFabClientAPI.UpdatePlayerStatistics(request, result =>
+        {
+            Debug.Log("スコア登録成功"));
+            SetDisplayName();
+        }, OnPlayFabError);
 
-    private void OnStatisticsUpdate(UpdatePlayerStatisticsResult result)
-    {
-        Debug.Log("スコア登録成功");
-        SetDisplayName(); // 名前を設定
     }
 
     private void SetDisplayName()
@@ -51,16 +71,16 @@ public class PlayFabScoreSubmitter : MonoBehaviour
             DisplayName = nameInputField.text
         };
 
-        PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnDisplayNameUpdate, OnPlayFabError);
-    }
+        PlayFabClientAPI.UpdateUserTitleDisplayName(request, result =>
+        {
+            Debug.Log(("表示名を更新しました");
+            sceneChanger.ChangeSceneToRanking(); 
+        }, OnPlayFabError);
 
-    private void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
-    {
-        Debug.Log("表示名を更新しました");
     }
 
     private void OnPlayFabError(PlayFabError error)
     {
-        Debug.Log("PlayFabエラー: " + error.GenerateErrorReport());
+        Debug.LogError("PlayFabエラー: " + error.GenerateErrorReport());
     }
 }
