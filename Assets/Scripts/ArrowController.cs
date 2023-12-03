@@ -9,6 +9,7 @@ public class ArrowController : MonoBehaviour
     private Vector3 initial_position;
     [SerializeField] private ParticleSystem collisionParticleSystemPrefab;
     [SerializeField] private AudioSource collisionSoundPrefab;
+    [SerializeField] private AudioClip clearVoice;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +61,8 @@ public class ArrowController : MonoBehaviour
                 TimerRank.Instance.StopTimer();
                 gameManager.isGameActive = false; // isGameActive変数をfalseにする
                 gameManager.DestroyAllBalls(); // すべてのボールを消去する
+                // play clear voice
+                AudioSource.PlayClipAtPoint(clearVoice, Camera.main.transform.position);
                 // SceneTransitionManagerを取得
                 SceneTransitionManager stm = FindObjectOfType<SceneTransitionManager>();
                 // 遅延後にシーン遷移を行うメソッドを呼び出す
