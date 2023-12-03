@@ -5,8 +5,8 @@ using PlayFab;
 using System.Collections.Generic;
 public class PlayFabLogin : MonoBehaviour
 {
-    public Text nameRecordText; // �����̃t�B�[���h
-    public InputField nameInputField; // ���[�U�[�����͗p��InputField
+    public Text nameRecordText; // 既存のフィールド
+    public InputField nameInputField; // ユーザー名入力用のInputField
 
     private void OnEnable()
     {
@@ -22,18 +22,18 @@ public class PlayFabLogin : MonoBehaviour
 
     private void PlayFabAuthService_OnLoginSuccess(LoginResult success)
     {
-        Debug.Log("���O�C������");
+        Debug.Log("ログイン成功");
         GetLeaderboard();
     }
 
     private void PlayFabAuthService_OnPlayFabError(PlayFabError error)
     {
-        Debug.Log("���O�C�����s: " + error.GenerateErrorReport());
+        Debug.Log("ログイン失敗: " + error.GenerateErrorReport());
     }
 
     void Start()
     {
-        // �����Ń��O�C�����������s����
+        // ここでログイン処理を実行する
         PlayFabAuthService.Instance.Authenticate(Authtypes.Silent);
     }
 
@@ -45,11 +45,11 @@ public class PlayFabLogin : MonoBehaviour
             StatisticName = "SpeedScore"
         }, result =>
         {
-            nameRecordText.text = ""; // �e�L�X�g��������
+            nameRecordText.text = ""; // テキストを初期化
             foreach (var item in result.Leaderboard)
             {
                 string displayName = item.DisplayName ?? "NoName";
-                nameRecordText.text += $"{item.Position + 1}��: {displayName} �X�R�A {item.StatValue}\n";
+                nameRecordText.text += $"{item.Position + 1}位: {displayName} スコア {item.StatValue}\n";
             }
         }, error =>
         {
@@ -58,8 +58,8 @@ public class PlayFabLogin : MonoBehaviour
     }
     public void SubmitScoreWithName()
     {
-        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreen������
-        float score = resultScreen.GetScore(); // ResultScreen����X�R�A���擾
+        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreenを検索
+        float score = resultScreen.GetScore(); // ResultScreenからスコアを取得
 
         var request = new UpdatePlayerStatisticsRequest
         {
@@ -68,7 +68,7 @@ public class PlayFabLogin : MonoBehaviour
                 new StatisticUpdate
                 {
                     StatisticName = "SpeedScore",
-                    Value = (int)score // �X�R�A�𐮐��ɕϊ����Ďg�p
+                    Value = (int)score // スコアを整数に変換して使用
                 }
             }
         };
@@ -78,8 +78,8 @@ public class PlayFabLogin : MonoBehaviour
 
     private void OnStatisticsUpdate(UpdatePlayerStatisticsResult result)
     {
-        Debug.Log("�X�R�A�o�^����");
-        SetDisplayName(); // ���O��ݒ�
+        Debug.Log("スコア登録成功");
+        SetDisplayName(); // 名前を設定
     }
 
     private void SetDisplayName()
@@ -94,11 +94,11 @@ public class PlayFabLogin : MonoBehaviour
 
     private void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
     {
-        // Debug.Log("�\�������X�V���܂���");
-        GetLeaderboard(); // ���[�_�[�{�[�h���X�V
+        Debug.Log("表示名を更新しました");
+        GetLeaderboard(); // リーダーボードを更新
     }
-    private void OnPlayFabError(PlayFabError error) // ���̃��\�b�h��ǉ�
+    private void OnPlayFabError(PlayFabError error) // このメソッドを追加
     {
-        Debug.Log("PlayFab�G���[: " + error.GenerateErrorReport());
+        Debug.Log("PlayFabエラー: " + error.GenerateErrorReport());
     }
 }

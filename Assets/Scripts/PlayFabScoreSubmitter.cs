@@ -6,21 +6,21 @@ using System.Collections.Generic;
 
 public class PlayFabScoreSubmitter : MonoBehaviour
 {
-    public InputField nameInputField; // ���[�U�[�����͗p��InputField
+    public InputField nameInputField; // ユーザー名入力用のInputField
 
     public void SubmitScoreWithName()
     {
         if (!GlobalLoginState.IsLoggedIn)
         {
-            Debug.LogError("���[�U�[�̓��O�C�����Ă��܂���B");
+            Debug.LogError("ユーザーはログインしていません。");
             return;
         }
 
-        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreen������
-        float score = resultScreen.GetScore(); // ResultScreen����X�R�A���擾
+        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreenを検索
+        float score = resultScreen.GetScore(); // ResultScreenからスコアを取得
         Debug.Log(score);
 
-        // �X�R�A��100�{�ɂ��Đ����ɕϊ����A�����-1���|����
+        // スコアを100倍にして整数に変換し、さらに-1を掛ける
         int scaledScore = Mathf.RoundToInt(score * 100) * -1;
 
         var request = new UpdatePlayerStatisticsRequest
@@ -30,7 +30,7 @@ public class PlayFabScoreSubmitter : MonoBehaviour
             new StatisticUpdate
             {
                 StatisticName = "SpeedScore",
-                Value = scaledScore // ���̃X�P�[�����O���ꂽ�X�R�A���g�p
+                Value = scaledScore // 負のスケーリングされたスコアを使用
             }
         }
         };
@@ -40,8 +40,8 @@ public class PlayFabScoreSubmitter : MonoBehaviour
 
     private void OnStatisticsUpdate(UpdatePlayerStatisticsResult result)
     {
-        Debug.Log("�X�R�A�o�^����");
-        SetDisplayName(); // ���O��ݒ�
+        Debug.Log("スコア登録成功");
+        SetDisplayName(); // 名前を設定
     }
 
     private void SetDisplayName()
@@ -56,11 +56,11 @@ public class PlayFabScoreSubmitter : MonoBehaviour
 
     private void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
     {
-        // Debug.Log("�\�������X�V���܂���");
+        Debug.Log("表示名を更新しました");
     }
 
     private void OnPlayFabError(PlayFabError error)
     {
-        Debug.Log("PlayFab�G���[: " + error.GenerateErrorReport());
+        Debug.Log("PlayFabエラー: " + error.GenerateErrorReport());
     }
 }
