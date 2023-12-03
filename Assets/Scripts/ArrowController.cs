@@ -40,8 +40,8 @@ public class ArrowController : MonoBehaviour
                 score = 1;
             }
             gameManager.AddScore(score);
-            AddedScoreTextController addedScoreTextController = GameObject.Find("AddedScoreText").GetComponent<AddedScoreTextController>();
-            addedScoreTextController.ShowAddedScoreText(score);
+            //AddedScoreTextController addedScoreTextController = GameObject.Find("AddedScoreText").GetComponent<AddedScoreTextController>();
+            //addedScoreTextController.ShowAddedScoreText(score);
             var collisionParticleSystem = Instantiate(collisionParticleSystemPrefab, gameObject.transform.position, Quaternion.identity);
             var collisionParticleSystemController = collisionParticleSystem.GetComponent<CollisionParticleSystemController>();
             collisionParticleSystemController.DestroyAfterPlay();
