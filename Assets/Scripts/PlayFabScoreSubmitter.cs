@@ -6,21 +6,21 @@ using System.Collections.Generic;
 
 public class PlayFabScoreSubmitter : MonoBehaviour
 {
-    public InputField nameInputField; // ƒ†[ƒU[–¼“ü—Í—p‚ÌInputField
+    public InputField nameInputField; // ãƒ¦ãƒ¼ã‚¶ãƒ¼åå…¥åŠ›ç”¨ã®InputField
 
     public void SubmitScoreWithName()
     {
         if (!GlobalLoginState.IsLoggedIn)
         {
-            Debug.LogError("ƒ†[ƒU[‚ÍƒƒOƒCƒ“‚µ‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogError("ãƒ¦ãƒ¼ã‚¶ãƒ¼ã¯ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã„ã¾ã›ã‚“ã€‚");
             return;
         }
 
-        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreen‚ğŒŸõ
-        float score = resultScreen.GetScore(); // ResultScreen‚©‚çƒXƒRƒA‚ğæ“¾
+        ResultScreen resultScreen = FindObjectOfType<ResultScreen>(); // ResultScreenã‚’æ¤œç´¢
+        float score = resultScreen.GetScore(); // ResultScreenã‹ã‚‰ã‚¹ã‚³ã‚¢ã‚’å–å¾—
         Debug.Log(score);
 
-        // ƒXƒRƒA‚ğ100”{‚É‚µ‚Ä®”‚É•ÏŠ·‚µA‚³‚ç‚É-1‚ğŠ|‚¯‚é
+        // ã‚¹ã‚³ã‚¢ã‚’100å€ã«ã—ã¦æ•´æ•°ã«å¤‰æ›ã—ã€ã•ã‚‰ã«-1ã‚’æ›ã‘ã‚‹
         int scaledScore = Mathf.RoundToInt(score * 100) * -1;
 
         var request = new UpdatePlayerStatisticsRequest
@@ -30,7 +30,7 @@ public class PlayFabScoreSubmitter : MonoBehaviour
             new StatisticUpdate
             {
                 StatisticName = "SpeedScore",
-                Value = scaledScore // •‰‚ÌƒXƒP[ƒŠƒ“ƒO‚³‚ê‚½ƒXƒRƒA‚ğg—p
+                Value = scaledScore // è² ã®ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã•ã‚ŒãŸã‚¹ã‚³ã‚¢ã‚’ä½¿ç”¨
             }
         }
         };
@@ -40,8 +40,8 @@ public class PlayFabScoreSubmitter : MonoBehaviour
 
     private void OnStatisticsUpdate(UpdatePlayerStatisticsResult result)
     {
-        Debug.Log("ƒXƒRƒA“o˜^¬Œ÷");
-        SetDisplayName(); // –¼‘O‚ğİ’è
+        Debug.Log("ã‚¹ã‚³ã‚¢ç™»éŒ²æˆåŠŸ");
+        SetDisplayName(); // åå‰ã‚’è¨­å®š
     }
 
     private void SetDisplayName()
@@ -56,11 +56,11 @@ public class PlayFabScoreSubmitter : MonoBehaviour
 
     private void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)
     {
-        Debug.Log("•\¦–¼‚ğXV‚µ‚Ü‚µ‚½");
+        Debug.Log("è¡¨ç¤ºåã‚’æ›´æ–°ã—ã¾ã—ãŸ");
     }
 
     private void OnPlayFabError(PlayFabError error)
     {
-        Debug.Log("PlayFabƒGƒ‰[: " + error.GenerateErrorReport());
+        Debug.Log("PlayFabã‚¨ãƒ©ãƒ¼: " + error.GenerateErrorReport());
     }
 }
